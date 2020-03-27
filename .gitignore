@@ -1,0 +1,32 @@
+# Build and Release Folders
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
+
+
+
+.DS_Store
+
+.RData
+*.Rproj
+.Rhistory
+
+# Other files and folders
+
+.settings/
+rsconnect/
+
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
+*.html
+*.tex
+*.log
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
+.Rproj.user
