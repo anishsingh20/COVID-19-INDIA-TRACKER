@@ -4,7 +4,7 @@ require(rvest)
 require(readr)
 require(jsonlite)
 require(shiny)
-
+library(janitor)
 require(shinydashboard)
 
 
@@ -31,8 +31,18 @@ tab <- tab[[1]] %>% html_table
 
 
 #setting the column names
-tab <- tab %>% setNames(c("S.No", "State","0", "Confirmed", "Recovered","Deaths","Active",
-                          "Last_Updated_Time")) 
+tab <- tab %>%  row_to_names(row_number = 1)
+
+colnames(tab)[11] = "Notes"
+colnames(tab)[12] = "Contracted_from"
+colnames(tab)[10] = "Current_status"
+colnames(tab)[2]  = "Patient_no"
+colnames(tab)[5]  =  "Age"
+colnames(tab)[7]  = "City"
+colnames(tab)[8]  = "District"
+colnames(tab)[9]  = "State"
+
+
 
 #removing the NA column
 tab <- tab[colSums(!is.na(tab)) > 0]

@@ -5,7 +5,7 @@ library(shiny)
 require(rvest)
 require(readr)
 require(jsonlite)
-
+require(janitor)
 
 
 
@@ -32,8 +32,16 @@ tab <- tab[[1]] %>% html_table
 
 
 #setting the column names
-tab <- tab %>% setNames(c("S.No", "State","0", "Confirmed", "Recovered","Deaths","Active",
-                          "Last_Updated_Time")) 
+
+tab <- tab %>%  row_to_names(row_number = 1)
+colnames(tab)[11] = "Notes"
+colnames(tab)[12] = "Contracted_from"
+colnames(tab)[10] = "Current_status"
+colnames(tab)[2]  = "Patient_no"
+colnames(tab)[5]  =  "Age"
+colnames(tab)[7]  = "City"
+colnames(tab)[8]  = "District"
+colnames(tab)[9]  = "State"
 
 #removing the NA column
 tab <- tab[colSums(!is.na(tab)) > 0]
@@ -43,18 +51,26 @@ tab <- na.omit(tab)
 
 
 
-# Define server logic required to draw a histogram
+
+#server logic
 shinyServer(function(input, output) {
 
-    output$distPlot <- renderPlot({
-
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-
+    output$Confirmed <- renderText({
+        tab[2,3]
     })
+    
+    output$Deaths <- renderText({
+        tab[2,4]
+    })
+    
+    output$Recoveries <- renderText({
+        tab[2,5]
+    })
+    
+    output$Active <- renderText({
+        tab[2,6]
+    })
+
+   
 
 })
