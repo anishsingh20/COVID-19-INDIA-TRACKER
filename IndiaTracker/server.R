@@ -14,9 +14,13 @@ require(highcharter)
 #complete state cases dataset
 
 #dataset of deceased cases
-tab1_age_deceased<- tab %>% 
+tab1_deceased<- tab %>% 
     filter(Current_status=="Deceased") %>% 
-    select(Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
+    select(`Date Announced`,`State Patient Number`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
+
+tab1_recovered<- tab %>% 
+    filter(Current_status=="Recovered") %>% 
+    select(`Date Announced`,`State Patient Number`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
     
 #server logic
 shinyServer(function(input, output) {
@@ -219,8 +223,15 @@ shinyServer(function(input, output) {
         
         df<- df[order(as.Date(df$`Date Announced`, format="%d/%m/%Y")),]
         
-        
+        tab1_age_deceased<- tab %>% 
+    filter(Current_status=="Deceased") %>% 
+    select(`Date Announced`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
         df
     })
 
 })
+tab1_age_deceased<- tab %>% 
+    filter(Current_status=="Deceased") %>% 
+    select(`Date Announced`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)tab1_age_deceased<- tab %>% 
+    filter(Current_status=="Deceased") %>% 
+    select(`Date Announced`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
