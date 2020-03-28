@@ -6,15 +6,17 @@ require(jsonlite)
 require(shiny)
 library(janitor)
 require(shinydashboard)
-
+require(dplyr)
+require(tidyr)
+require(highcharter)
 
 #reading the raw COVID-19 JSON data(refreshed every 5 minutes)
-url1 <- "https://api.rootnet.in/covid19-in/unofficial/covid19india.org"
+#url1 <- "https://api.rootnet.in/covid19-in/unofficial/covid19india.org"
 #loading thhe JSON data fron the web
-jsonDoc <- fromJSON(url1)
+#jsonDoc <- fromJSON(url1)
 
 #extracting data in data frame
-India_data <- jsonDoc$data$rawPatientData
+#India_data <- jsonDoc$data$rawPatientData
 
 
 #complete state cases dataset
@@ -50,8 +52,11 @@ tab <- tab[colSums(!is.na(tab)) > 0]
 tab <- na.omit(tab)
 
 
-tab <- tab %>% filter(complete.cases(.))  
-tab <- tab %>% na.omit
+#removing column 1 as it is not necessary:
+#tab$`1` <- NA
+#tab <-remove_empty(tab,"cols")
+
+
 
 
 dashboardPage(
@@ -144,7 +149,30 @@ dashboardPage(
                   )) #end head
                 )
                 
-        ) #end tab1
+        ), #end tab1
+        
+        
+        tabItem(tabName ="tab3",
+                
+                fluidRow(
+                  
+                  
+                       
+                       box(
+                         
+                         width = 12,
+                         h3("Time series plot of daily confirmed cases:"),
+                         highchartOutput("TimeSeriesPlot")
+                         
+                        
+                         
+                         
+                       ) #end box
+                   
+                  
+                ) #end fluidRow
+                
+        ) #end tabitem
         
       ) #end tabitems
       

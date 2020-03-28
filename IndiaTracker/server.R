@@ -6,16 +6,9 @@ require(rvest)
 require(readr)
 require(jsonlite)
 require(janitor)
+require(highcharter)
 
 
-
-#reading the raw COVID-19 JSON data(refreshed every 5 minutes)
-url1 <- "https://api.rootnet.in/covid19-in/unofficial/covid19india.org"
-#loading thhe JSON data fron the web
-jsonDoc <- fromJSON(url1)
-
-#extracting data in data frame
-India_data <- jsonDoc$data$rawPatientData
 
 
 #complete state cases dataset
@@ -47,25 +40,47 @@ colnames(tab)[9]  = "State"
 
 
 #removing the NA column
-tab <- tab[colSums(!is.na(tab)) > 0]
-#removing the NA rows
-tab <- na.omit(tab)
-
-
-#removing column 1 as it is not necessary:
-tab$`1` <- NA
-tab <-remove_empty(tab,"cols")
-
-
-
+    tab <- tab[colSums(!is.na(tab)) > 0]
+    #removing the NA rows
+    tab <- na.omit(tab)
+    
+    
+    #removing column 1 as it is not necessary:
+    #tab$`1` <- NA
+    
+    
+    #states and total cases in each state
+    state_data <- data.frame(table(tab$State))
+    colnames(state_data) <- c("State","ConfCases")
+    
+    #dataframe of Dates and cases on each date
+    date_cases <- data.frame(table(tab$`Date Announced`))
+    colnames(date_cases) <- c("Date","Total_confirmed")
+    #ordering the dataframe by date values
+    date_cases<- date_cases[order(as.Date(date_cases$Date, format="%d/%m/%Y")),]
+    date_cases[nrow(date_cases),] = NA #setting missing value as NA
+    date_cases <- date_cases[complete.cases(date_cases), ] #removing NA values
+    
 
 
 #server logic
 shinyServer(function(input, output) {
+    
+    #reading the raw COVID-19 JSON data(refreshed every 5 minutes)
+   # url1 <- "https://api.rootnet.in/covid19-in/unofficial/covid19india.org"
+    #loading thhe JSON data fron the web
+    #jsonDoc <- fromJSON(url1)
+    
+    #extracting data in data frame
+    #India_data <- jsonDoc$data$rawPatientData
+    
+    
+    
 
     output$Confirmed <- renderText({
         #no of rows in the raw dataset represents the total cases in India
-       nrow(India_data)
+      
+        sum(date_cases$Total_confirmed)
     })
     
     output$Deaths <- renderText({
@@ -80,6 +95,16 @@ shinyServer(function(input, output) {
         tab[2,6]
     })
 
+    
+    output$TimeSeriesPlot <- renderHighchart({
+        
+        hchart(date_cases, "spline", hcaes(x = Date,y = Total_confirmed), name="Confirmed cases on each date:",color="purple") %>% 
+            hc_exporting(enabled = TRUE) %>%
+            hc_title(text="Total COVID-19 confirmed cases each day:",align="center") %>%
+            hc_add_theme(hc_theme_elementary()) 
+        
+        
+    })
    
 
 })
