@@ -64,7 +64,8 @@ tab <-remove_empty(tab,"cols")
 shinyServer(function(input, output) {
 
     output$Confirmed <- renderText({
-        tab[2,3]
+        #no of rows in the raw dataset represents the total cases in India
+       nrow(India_data)
     })
     
     output$Deaths <- renderText({
