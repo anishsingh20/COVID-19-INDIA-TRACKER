@@ -53,8 +53,8 @@ tab <- na.omit(tab)
 
 
 #removing column 1 as it is not necessary:
-#tab$`1` <- NA
-#tab <-remove_empty(tab,"cols")
+tab$`1` <- NA
+tab <-remove_empty(tab,"cols")
 
 
 
@@ -150,6 +150,31 @@ dashboardPage(
                 )
                 
         ), #end tab1
+        
+        tabItem(tabName = "tab2",
+                
+                fluidRow(
+                  
+                  box(width = 12,
+                      
+                      h3("Confirmed cases in Each Indian state:"),
+                      br(),
+                      highchartOutput("StateConfChart")
+                    ) ,#end box
+                  
+                  
+                  box(
+                    width = 4,
+                    align="center",
+                    h3("Table of cumalative confirmed cases in each state till date:"),
+                    p("Refreshes every 5 minutes"),
+                    dataTableOutput("statetable")
+                    
+                    
+                  ) #end box
+                  ) #end fluidRow
+                ), #end tabItem
+        
         
         
         tabItem(tabName ="tab3",

@@ -12,54 +12,7 @@ require(highcharter)
 
 
 #complete state cases dataset
-url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSc_2y5N0I67wDU38DjDh35IZSIS30rQf7_NYZhtYYGU1jJYT6_kDx4YpF-qw0LSlGsBYP8pqM_a1Pd/pubhtml#"
 
-#reading the table from the URL using rvest package
-
-h1<- read_html(url)
-html_text(h1)
-
-
-tab <- h1 %>% html_nodes("table")
-tab <- tab[[1]] %>% html_table
-
-
-#setting the column names
-
-tab <- tab %>%  row_to_names(row_number = 1)
-
-colnames(tab)[11] = "Notes"
-colnames(tab)[12] = "Contracted_from"
-colnames(tab)[10] = "Current_status"
-colnames(tab)[2]  = "Patient_no"
-colnames(tab)[5]  =  "Age"
-colnames(tab)[7]  = "City"
-colnames(tab)[8]  = "District"
-colnames(tab)[9]  = "State"
-
-
-
-#removing the NA column
-    tab <- tab[colSums(!is.na(tab)) > 0]
-    #removing the NA rows
-    tab <- na.omit(tab)
-    
-    
-    #removing column 1 as it is not necessary:
-    #tab$`1` <- NA
-    
-    
-    #states and total cases in each state
-    state_data <- data.frame(table(tab$State))
-    colnames(state_data) <- c("State","ConfCases")
-    
-    #dataframe of Dates and cases on each date
-    date_cases <- data.frame(table(tab$`Date Announced`))
-    colnames(date_cases) <- c("Date","Total_confirmed")
-    #ordering the dataframe by date values
-    date_cases<- date_cases[order(as.Date(date_cases$Date, format="%d/%m/%Y")),]
-    date_cases[nrow(date_cases),] = NA #setting missing value as NA
-    date_cases <- date_cases[complete.cases(date_cases), ] #removing NA values
     
 
 
@@ -74,25 +27,82 @@ shinyServer(function(input, output) {
     #extracting data in data frame
     #India_data <- jsonDoc$data$rawPatientData
     
+    url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSc_2y5N0I67wDU38DjDh35IZSIS30rQf7_NYZhtYYGU1jJYT6_kDx4YpF-qw0LSlGsBYP8pqM_a1Pd/pubhtml#"
     
+    #reading the table from the URL using rvest package
+    
+    h1<- read_html(url)
+    html_text(h1)
+    
+    
+    tab <- h1 %>% html_nodes("table")
+    tab <- tab[[1]] %>% html_table
+    
+    
+    #setting the column names
+    
+    tab <- tab %>%  row_to_names(row_number = 1)
+    
+    colnames(tab)[11] = "Notes"
+    colnames(tab)[12] = "Contracted_from"
+    colnames(tab)[10] = "Current_status"
+    colnames(tab)[2]  = "Patient_no"
+    colnames(tab)[5]  =  "Age"
+    colnames(tab)[7]  = "City"
+    colnames(tab)[8]  = "District"
+    colnames(tab)[9]  = "State"
+    
+    
+    
+    #removing the NA column
+    tab <- tab[colSums(!is.na(tab)) > 0]
+    #removing the NA rows
+    tab <- na.omit(tab)
+    
+    #removing column 1 as it is not necessary:
+    
+    tab$`1` <- NA
+    tab <-remove_empty(tab,"cols")
+    
+    
+    #states and total cases in each state
+    state_data <- data.frame(table(tab$State))
+    colnames(state_data) <- c("State","ConfCases")
+    state_data <- state_data %>% 
+        arrange(desc(ConfCases))
+    
+    #removing the NA column(Setting values of 3rd row as NA)
+    state_data[3,] = NA #setting missing value as NA
+    state_data <- state_data[complete.cases(state_data), ] #removing NA values
+    
+    
+    
+    
+    #dataframe of Dates and cases on each date
+    date_cases <- data.frame(table(tab$`Date Announced`))
+    colnames(date_cases) <- c("Date","Total_confirmed")
+    #ordering the dataframe by date values
+    date_cases<- date_cases[order(as.Date(date_cases$Date, format="%d/%m/%Y")),]
+    date_cases[nrow(date_cases),] = NA #setting missing value as NA
+    date_cases <- date_cases[complete.cases(date_cases), ] #removing NA values
     
 
     output$Confirmed <- renderText({
         #no of rows in the raw dataset represents the total cases in India
       
-        sum(date_cases$Total_confirmed)
+        sum(state_data$ConfCases)
     })
     
     output$Deaths <- renderText({
-        tab[2,4]
+       
     })
     
     output$Recoveries <- renderText({
-        tab[2,5]
+        
     })
     
     output$Active <- renderText({
-        tab[2,6]
+        
     })
 
     
@@ -106,5 +116,23 @@ shinyServer(function(input, output) {
         
     })
    
+    
+    output$statetable <- renderDataTable({
+        
+        state_data
+        
+        
+    })
+    
+    
+    output$StateConfChart <- renderHighchart({
+        
+        hchart(state_data, "column", hcaes(x = State,y = ConfCases), name="Confirmed cases for each state:",color="black") %>% 
+            hc_exporting(enabled = TRUE) %>%
+            hc_title(text="Total COVID-19 confirmed cases for each state:",align="center") %>%
+            hc_add_theme(hc_theme_elementary()) 
+        
+        
+    })
 
 })
