@@ -50,6 +50,9 @@ tab <- tab[colSums(!is.na(tab)) > 0]
 tab <- na.omit(tab)
 
 
+tab <- tab %>% filter(complete.cases(.))  
+tab <- tab %>% na.omit
+
 
 dashboardPage(
   skin="purple",

@@ -34,6 +34,7 @@ tab <- tab[[1]] %>% html_table
 #setting the column names
 
 tab <- tab %>%  row_to_names(row_number = 1)
+
 colnames(tab)[11] = "Notes"
 colnames(tab)[12] = "Contracted_from"
 colnames(tab)[10] = "Current_status"
@@ -43,10 +44,17 @@ colnames(tab)[7]  = "City"
 colnames(tab)[8]  = "District"
 colnames(tab)[9]  = "State"
 
+
+
 #removing the NA column
 tab <- tab[colSums(!is.na(tab)) > 0]
 #removing the NA rows
 tab <- na.omit(tab)
+
+
+#removing column 1 as it is not necessary:
+tab$`1` <- NA
+tab <-remove_empty(tab,"cols")
 
 
 
