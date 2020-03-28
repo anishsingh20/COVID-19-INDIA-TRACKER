@@ -14,8 +14,6 @@ require(highcharter)
 #complete state cases dataset
 
     
-
-
 #server logic
 shinyServer(function(input, output) {
     
@@ -86,7 +84,10 @@ shinyServer(function(input, output) {
     date_cases[nrow(date_cases),] = NA #setting missing value as NA
     date_cases <- date_cases[complete.cases(date_cases), ] #removing NA values
     
-
+    
+    
+    
+    
     output$Confirmed <- renderText({
         #no of rows in the raw dataset represents the total cases in India
       
@@ -133,6 +134,89 @@ shinyServer(function(input, output) {
             hc_add_theme(hc_theme_elementary()) 
         
         
+    })
+    
+    
+    output$StateCityCases <- renderHighchart({
+        
+        #dataframe of dates and cities
+        state_city_data <- tab %>% 
+            filter(State == input$state) %>% 
+            select(`Date Announced`,City)
+       
+        #missing cities name are makred as unconfirmed cities
+        while(length(ind <- which(state_city_data$City == "")) > 0){
+            state_city_data$City[ind] <- "Unconfirmed"
+        }
+        
+        #making a data frame of Cities and cases         
+        df <- state_city_data %>% 
+            group_by(City) %>% 
+            summarise(nCount=n()) %>% 
+            arrange(desc(nCount))
+     
+        
+        
+        hchart(df, "column", hcaes(x = City,y = nCount), name="Confirmed cases for each state's City",color="green") %>% 
+            hc_exporting(enabled = TRUE) %>%
+            hc_title(text="Total COVID-19 confirmed cases for each state's cities",align="center") %>%
+            hc_add_theme(hc_theme_elementary()) 
+        
+        
+        
+        
+        
+        
+    })
+    
+    
+    output$StateDate <- renderHighchart({
+        
+        #dataframe of dates and cities
+        state_city_data <- tab %>% 
+            filter(State == input$state) %>% 
+            select(`Date Announced`,City)
+        
+        #missing cities name are makred as unconfirmed cities
+        while(length(ind <- which(state_city_data$City == "")) > 0){
+            state_city_data$City[ind] <- "Unconfirmed"
+        }
+        
+        #making a data frame of Cities and cases         
+        df <-  df <- state_city_data %>% 
+            group_by(`Date Announced`) %>% 
+            summarise(nCount=n())
+        
+        df<- df[order(as.Date(df$`Date Announced`, format="%d/%m/%Y")),]
+    
+        
+        hchart(df, "spline", hcaes(x = `Date Announced`,y = nCount), name="Cases Confirmed:",color="green") %>% 
+            hc_exporting(enabled = TRUE) %>%
+            hc_title(text="COVID-19 cases confirmed on each date in the selected state:",align="center") %>%
+            hc_add_theme(hc_theme_elementary()) 
+        
+    })
+    
+    
+    output$CityDatetable <- renderDataTable({
+        
+        state_city_data <- tab %>% 
+            filter(State == input$state) %>% 
+            select(`Date Announced`,City)
+        
+        #missing cities name are makred as unconfirmed cities
+        while(length(ind <- which(state_city_data$City == "")) > 0){
+            state_city_data$City[ind] <- "Unconfirmed"
+        }
+    
+        df <- state_city_data %>% 
+            group_by(City,`Date Announced`) %>% 
+            summarise(nCount = n())
+        
+        df<- df[order(as.Date(df$`Date Announced`, format="%d/%m/%Y")),]
+        
+        
+        df
     })
 
 })

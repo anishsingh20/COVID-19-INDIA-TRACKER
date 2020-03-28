@@ -57,6 +57,27 @@ tab$`1` <- NA
 tab <-remove_empty(tab,"cols")
 
 
+#states and total cases in each state
+state_data <- data.frame(table(tab$State))
+colnames(state_data) <- c("State","ConfCases")
+state_data <- state_data %>% 
+  arrange(desc(ConfCases))
+
+#removing the NA column(Setting values of 3rd row as NA)
+state_data[3,] = NA #setting missing value as NA
+state_data <- state_data[complete.cases(state_data), ] #removing NA values
+
+
+
+
+#dataframe of Dates and cases on each date
+date_cases <- data.frame(table(tab$`Date Announced`))
+colnames(date_cases) <- c("Date","Total_confirmed")
+#ordering the dataframe by date values
+date_cases<- date_cases[order(as.Date(date_cases$Date, format="%d/%m/%Y")),]
+date_cases[nrow(date_cases),] = NA #setting missing value as NA
+date_cases <- date_cases[complete.cases(date_cases), ] #removing NA values
+
 
 
 dashboardPage(
@@ -162,9 +183,42 @@ dashboardPage(
                       highchartOutput("StateConfChart")
                     ) ,#end box
                   
+                  box(
+                    width = 12,
+                    
+                    selectInput("state", label = "Select State",choices = state_data[,1])
+                    
+                    
+                  ), #end box
                   
                   box(
-                    width = 4,
+                    width = 6,
+                    
+                    highchartOutput("StateCityCases")
+                    
+                    
+                  ), 
+                  
+                  box(
+                    width = 6,
+                    
+                    highchartOutput("StateDate")
+                    
+                    
+                  ), #end box
+                  
+                  
+                  box(
+                    width = 6,
+                    align="center",
+                    h3("Table of cumalative confirmed cases in each city of selected state till date:"),
+                    p("Refreshes every 5 minutes"),
+                    dataTableOutput("CityDatetable")
+                    
+                  ) ,
+                  
+                  box(
+                    width = 6,
                     align="center",
                     h3("Table of cumalative confirmed cases in each state till date:"),
                     p("Refreshes every 5 minutes"),
