@@ -73,7 +73,63 @@ dashboardPage(
         tabItem(tabName ="tab1",
                 
                 h2("COVID-19 India Tracker",align="center",style="margin-top:-5px;"),
-                br()
+                br(),
+                
+                box(
+                  
+                  h4("Confirmed Cases:", align="left") , 
+                  width=3,
+                  textOutput("Confirmed"), #end text Output
+                  #adding custom CSS for the text
+                  tags$head(tags$style("#Confirmed{
+                                 font-size: 18px;
+                                 color:black;
+                                 font-family:'Raleway', sans-serif;
+                                 }"
+                  )
+                  ) # end head
+                  
+                ), #end box
+                
+                box(
+                  
+                  h4("Total Deaths:", align="left") , 
+                  textOutput("Deaths"), #end text Output
+                  width=3,
+                  #adding custom CSS for the text
+                  tags$head(tags$style("#Deaths{
+                                 color: red;
+                                 font-size: 18px;
+                                 font-family:'Raleway', sans-serif;
+                                 }"
+                  )) #end head
+                ) , #end box
+                
+                box(
+                  
+                  h4("Total Recoveries:", align="left") , 
+                  textOutput("Recoveries"), #end text Output
+                  width=3,
+                  tags$head(tags$style("#Recoveries{
+                                 color: green;
+                                 font-size: 18px;
+                                 font-family:'Raleway', sans-serif;
+                                 }"
+                  )) #end head
+                ), #end box
+                
+                box(
+                  
+                  h4("Active Cases:", align="left") , 
+                  textOutput("Active"), #end text Output
+                  width=3,
+                  tags$head(tags$style("#Active{
+                                 color: green;
+                                 font-size: 18px;
+                                 font-family:'Raleway', sans-serif;
+                                 }"
+                  )) #end head
+                )
                 
         ) #end tab1
         
