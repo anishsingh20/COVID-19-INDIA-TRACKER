@@ -3,8 +3,9 @@
 require(rvest)
 require(readr)
 require(jsonlite)
+require(shiny)
 
-
+require(shinydashboard)
 
 
 #reading the raw COVID-19 JSON data(refreshed every 5 minutes)
@@ -37,4 +38,51 @@ tab <- tab %>% setNames(c("S.No", "State","0", "Confirmed", "Recovered","Deaths"
 tab <- tab[colSums(!is.na(tab)) > 0]
 #removing the NA rows
 tab <- na.omit(tab)
+
+
+
+dashboardPage(
+  skin="purple",
+  dashboardHeader(title="COVID-19 INDIA TRACKER"),
+  
+  
+  #dashboard sidebar
+  dashboardSidebar(
+    
+    sidebarMenu(
+      
+      menuItem("Main Menu", tabName = "tab1" ,icon=icon("dashboard")),
+      menuItem("Stateswise Cases", tabName = "tab2",icon= icon("globe")),
+      menuItem("Time Series Analysis", tabName = "tab3",icon= icon("cog")),
+      menuItem("Daily Change in Cases", tabName = "tab4",icon=icon("calendar"))
+    ) #end sidebarmenu
+    
+  ), # end dashboardsidebar
+  
+  
+  #dashboardBody
+    dashboardBody(
+      
+      tags$head(
+        tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css?family=Merriweather|Playfair+Display|Raleway")
+      ),
+      
+      #adding all the tabs
+      tabItems(
+        
+        tabItem(tabName ="tab1",
+                
+                h2("COVID-19 India Tracker",align="center",style="margin-top:-5px;"),
+                br()
+                
+        ) #end tab1
+        
+      ) #end tabitems
+      
+      
+    ) #end dashboardBody
+  
+  
+  
+) #end dashboardPage
 
