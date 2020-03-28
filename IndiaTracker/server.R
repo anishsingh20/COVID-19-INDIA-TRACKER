@@ -13,6 +13,10 @@ require(highcharter)
 
 #complete state cases dataset
 
+#dataset of deceased cases
+tab1_age_deceased<- tab %>% 
+    filter(Current_status=="Deceased") %>% 
+    select(Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
     
 #server logic
 shinyServer(function(input, output) {
