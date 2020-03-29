@@ -15,8 +15,8 @@ require(highcharter)
 
 #dataset of deceased cases
 tab1_deceased<- tab %>% 
-    filter(Current_status=="Deceased") %>% 
-    select(`Date Announced`,`State Patient Number`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
+  filter(Current_status=="Deceased") %>% 
+  select(`Date Announced`,`State Patient Number`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
 
 tab1_recovered<- tab %>% 
     filter(Current_status=="Recovered") %>% 
@@ -49,10 +49,14 @@ shinyServer(function(input, output) {
     
     tab <- tab %>%  row_to_names(row_number = 1)
     
+    #removing column 1 as it is not necessary:
+    tab$`1` <- NA
+    tab <-remove_empty(tab,"cols")
+    
     colnames(tab)[11] = "Notes"
     colnames(tab)[12] = "Contracted_from"
     colnames(tab)[10] = "Current_status"
-    colnames(tab)[2]  = "Patient_no"
+    colnames(tab)[1]  = "Patient_no"
     colnames(tab)[5]  =  "Age"
     colnames(tab)[7]  = "City"
     colnames(tab)[8]  = "District"
@@ -65,10 +69,9 @@ shinyServer(function(input, output) {
     #removing the NA rows
     tab <- na.omit(tab)
     
-    #removing column 1 as it is not necessary:
+
     
-    tab$`1` <- NA
-    tab <-remove_empty(tab,"cols")
+   
     
     
     #states and total cases in each state
@@ -78,21 +81,10 @@ shinyServer(function(input, output) {
         arrange(desc(ConfCases))
     
     #removing the NA column(Setting values of 3rd row as NA)
-    state_data[3,] = NA #setting missing value as NA
-    state_data <- state_data[complete.cases(state_data), ] #removing NA values
-    
-    
-    
-    
-    #dataframe of Dates and cases on each date
-    date_cases <- data.frame(table(tab$`Date Announced`))
-    colnames(date_cases) <- c("Date","Total_confirmed")
-    #ordering the dataframe by date values
-    date_cases<- date_cases[order(as.Date(date_cases$Date, format="%d/%m/%Y")),]
-    date_cases[nrow(date_cases),] = NA #setting missing value as NA
-    date_cases <- date_cases[complete.cases(date_cases), ] #removing NA values
-    
-    
+    while(length(ind <- which(state_data$State == "")) > 0){
+      state_data$State[ind] <- "Unconfirmed"
+    }
+    state_data <- na.omit(state_data)
     
     
     
@@ -116,6 +108,14 @@ shinyServer(function(input, output) {
 
     
     output$TimeSeriesPlot <- renderHighchart({
+      
+      #dataframe of Dates and cases on each date
+      date_cases <- data.frame(table(tab$`Date Announced`))
+      colnames(date_cases) <- c("Date","Total_confirmed")
+      #ordering the dataframe by date values
+      date_cases<- date_cases[order(as.Date(date_cases$Date, format="%d/%m/%Y")),]
+      date_cases[nrow(date_cases),] = NA #setting missing value as NA
+      date_cases <- date_cases[complete.cases(date_cases), ] #removing NA values
         
         hchart(date_cases, "spline", hcaes(x = Date,y = Total_confirmed), name="Confirmed cases on each date:",color="purple") %>% 
             hc_exporting(enabled = TRUE) %>%
@@ -230,8 +230,3 @@ shinyServer(function(input, output) {
     })
 
 })
-tab1_age_deceased<- tab %>% 
-    filter(Current_status=="Deceased") %>% 
-    select(`Date Announced`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)tab1_age_deceased<- tab %>% 
-    filter(Current_status=="Deceased") %>% 
-    select(`Date Announced`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
