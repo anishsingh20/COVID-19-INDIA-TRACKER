@@ -15,12 +15,12 @@ require(highcharter)
 
 #dataset of deceased cases
 tab1_deceased<- tab %>% 
-  filter(Current_status=="Deceased") %>% 
-  select(`Date Announced`,`State Patient Number`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
+  filter(`Current Status`=="Deceased") %>% 
+  select(`Date Announced`,`State Patient Number`,Gender,`Age Bracket`,`Detected City`,`Detected State`,Notes,`Contracted from which Patient (Suspected)`,Nationality,`Status Change Date`)
 
 tab1_recovered<- tab %>% 
-    filter(Current_status=="Recovered") %>% 
-    select(`Date Announced`,`State Patient Number`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
+    filter(`Current Status`=="Recovered") %>% 
+  select(`Date Announced`,`State Patient Number`,Gender,`Age Bracket`,`Detected City`,`Detected State`,Notes,`Contracted from which Patient (Suspected)`,Nationality,`Status Change Date`)
     
 #server logic
 shinyServer(function(input, output) {
