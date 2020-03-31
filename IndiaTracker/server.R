@@ -141,7 +141,7 @@ shinyServer(function(input, output) {
         
         #dataframe of dates and cities
         state_city_data <- tab %>% 
-            filter(State == input$state) %>% 
+            filter(`Detected State` == input$state) %>% 
             select(`Date Announced`,`Detected City`)
        
         #missing cities name are makred as unconfirmed cities
@@ -174,7 +174,7 @@ shinyServer(function(input, output) {
         
         #dataframe of dates and cities
         state_city_data <- tab %>% 
-            filter(State == input$state) %>% 
+            filter(`Detected State` == input$state) %>% 
             select(`Date Announced`,`Detected City`)
         
         #missing cities name are makred as unconfirmed cities
@@ -201,7 +201,7 @@ shinyServer(function(input, output) {
     output$CityDatetable <- renderDataTable({
         
         state_city_data <- tab %>% 
-            filter(State == input$state) %>% 
+            filter(`Detected State` == input$state) %>% 
             select(`Date Announced`,`Detected City`)
         
         #missing cities name are makred as unconfirmed cities

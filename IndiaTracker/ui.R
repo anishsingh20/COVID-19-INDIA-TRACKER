@@ -56,7 +56,7 @@ state_data <- state_data %>%
   arrange(desc(ConfCases))
 
 #removing the NA column(Setting values of 3rd row as NA)
-while(length(ind <- which(state_data$State == "NA")) > 0){
+while(length(ind <- which(state_data$State == "")) > 0){
   state_data$State[ind] <- "Unconfirmed"
 }
 state_data <- na.omit(state_data)
