@@ -53,15 +53,7 @@ shinyServer(function(input, output) {
     tab$`1` <- NA
     tab <-remove_empty(tab,"cols")
     
-    colnames(tab)[11] = "Notes"
-    colnames(tab)[12] = "Contracted_from"
-    colnames(tab)[10] = "Current_status"
-    colnames(tab)[1]  = "Patient_no"
-    colnames(tab)[5]  =  "Age"
-    colnames(tab)[7]  = "City"
-    colnames(tab)[8]  = "District"
-    colnames(tab)[9]  = "State"
-    
+
     
     
     #removing the NA column

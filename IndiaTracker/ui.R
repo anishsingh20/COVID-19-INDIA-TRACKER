@@ -40,14 +40,7 @@ tab <- tab %>%  row_to_names(row_number = 1)
 tab$`1` <- NA
 tab <-remove_empty(tab,"cols")
 
-colnames(tab)[11] = "Notes"
-colnames(tab)[12] = "Contracted_from"
-colnames(tab)[10] = "Current_status"
-colnames(tab)[1]  = "Patient_no"
-colnames(tab)[5]  =  "Age"
-colnames(tab)[7]  = "City"
-colnames(tab)[8]  = "District"
-colnames(tab)[9]  = "State"
+
 
 
 
@@ -57,7 +50,7 @@ tab <- tab[colSums(!is.na(tab)) > 0]
 tab <- na.omit(tab)
 
 #states and total cases in each state
-state_data <- data.frame(table(tab$State))
+state_data <- data.frame(table(tab$`Detected State`))
 colnames(state_data) <- c("State","ConfCases")
 state_data <- state_data %>% 
   arrange(desc(ConfCases))
