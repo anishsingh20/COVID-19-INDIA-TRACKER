@@ -10,7 +10,7 @@ require(highcharter)
 require(readxl)
 
 #State data(refreshes every day)
-StateCOVID_19 <- read_excel("data/StateCOVID-19.xlsx")
+StateCOVID_19 <- read_excel("../data/StateCOVID-19.xlsx")
 StateCOVID_19 <- na.omit(StateCOVID_19)
 
 
@@ -91,21 +91,28 @@ shinyServer(function(input, output) {
     
     output$Deaths <- renderText({
       
-      StateCOVID_19$Deaths
+      StateCOVID_19$Deaths[1]
        
     })
     
     output$Recoveries <- renderText({
       
-      StateCOVID_19$Recovered
+      StateCOVID_19$Recovered[1]
         
     })
     
     output$Active <- renderText({
-        StateCOVID_19$Active
+      
+        StateCOVID_19$Active[1]
     })
-
+  
     
+    output$statetable <- renderDataTable({
+      
+      StateCOVID_19
+      
+    })
+  
     output$TimeSeriesPlot <- renderHighchart({
       
       #dataframe of Dates and cases on each date

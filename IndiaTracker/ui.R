@@ -9,9 +9,11 @@ require(shinydashboard)
 require(dplyr)
 require(tidyr)
 require(highcharter)
+library(readxl)
 
 #State data(refreshes every day)
-statedf <- read.delim("~/Documents/My Projects/COVID-19-INDIA-TRACKER/data/StateCOVID-19.xlsx",sep="$",header = F)
+StateCOVID_19 <- read_excel("../data/StateCOVID-19.xlsx")
+StateCOVID_19 <- na.omit(StateCOVID_19)
 
 
 #complete state cases dataset
@@ -155,7 +157,16 @@ dashboardPage(
                                  font-family:'Raleway', sans-serif;
                                  }"
                   )) #end head
-                )
+                ) ,
+                
+                
+                box(
+                  width=12,
+                  h3("Statewise data:"),
+                  p("The data refreshes every day:"),
+                  dataTableOutput("StateData")
+                  
+                ) #end box
                 
         ), #end tab1
         
