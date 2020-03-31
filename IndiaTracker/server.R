@@ -218,7 +218,7 @@ shinyServer(function(input, output) {
         }
     
         df <- state_city_data %>% 
-            group_by(City,`Date Announced`) %>% 
+            group_by(`Detected City`,`Date Announced`) %>% 
             summarise(nCount = n())
         
         df<- df[order(as.Date(df$`Date Announced`, format="%d/%m/%Y")),]
