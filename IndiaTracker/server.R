@@ -7,8 +7,11 @@ require(readr)
 require(jsonlite)
 require(janitor)
 require(highcharter)
+require(readxl)
 
-
+#State data(refreshes every day)
+StateCOVID_19 <- read_excel("data/StateCOVID-19.xlsx")
+StateCOVID_19 <- na.omit(StateCOVID_19)
 
 
 #complete state cases dataset
@@ -87,15 +90,19 @@ shinyServer(function(input, output) {
     })
     
     output$Deaths <- renderText({
+      
+      StateCOVID_19$Deaths
        
     })
     
     output$Recoveries <- renderText({
+      
+      StateCOVID_19$Recovered
         
     })
     
     output$Active <- renderText({
-        
+        StateCOVID_19$Active
     })
 
     
