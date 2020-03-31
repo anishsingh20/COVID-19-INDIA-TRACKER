@@ -75,7 +75,7 @@ shinyServer(function(input, output) {
     
     
     #states and total cases in each state
-    state_data <- data.frame(table(tab$State))
+    state_data <- data.frame(table(tab$`Detected State`))
     colnames(state_data) <- c("State","ConfCases")
     state_data <- state_data %>% 
         arrange(desc(ConfCases))
@@ -150,22 +150,22 @@ shinyServer(function(input, output) {
         #dataframe of dates and cities
         state_city_data <- tab %>% 
             filter(State == input$state) %>% 
-            select(`Date Announced`,City)
+            select(`Date Announced`,`Detected City`)
        
         #missing cities name are makred as unconfirmed cities
-        while(length(ind <- which(state_city_data$City == "")) > 0){
-            state_city_data$City[ind] <- "Unconfirmed"
+        while(length(ind <- which(state_city_data$`Detected City` == "")) > 0){
+            state_city_data$`Detected City`[ind] <- "Unconfirmed"
         }
         
         #making a data frame of Cities and cases         
         df <- state_city_data %>% 
-            group_by(City) %>% 
+            group_by(`Detected City`) %>% 
             summarise(nCount=n()) %>% 
             arrange(desc(nCount))
      
         
         
-        hchart(df, "column", hcaes(x = City,y = nCount), name="Confirmed cases for each state's City",color="green") %>% 
+        hchart(df, "column", hcaes(x = `Detected City`,y = nCount), name="Confirmed cases for each state's City",color="green") %>% 
             hc_exporting(enabled = TRUE) %>%
             hc_title(text="Total COVID-19 confirmed cases for each state's cities",align="center") %>%
             hc_add_theme(hc_theme_elementary()) 
@@ -183,11 +183,11 @@ shinyServer(function(input, output) {
         #dataframe of dates and cities
         state_city_data <- tab %>% 
             filter(State == input$state) %>% 
-            select(`Date Announced`,City)
+            select(`Date Announced`,`Detected City`)
         
         #missing cities name are makred as unconfirmed cities
-        while(length(ind <- which(state_city_data$City == "")) > 0){
-            state_city_data$City[ind] <- "Unconfirmed"
+        while(length(ind <- which(state_city_data$`Detected City` == "")) > 0){
+            state_city_data$`Detected City`[ind] <- "Unconfirmed"
         }
         
         #making a data frame of Cities and cases         
@@ -210,7 +210,7 @@ shinyServer(function(input, output) {
         
         state_city_data <- tab %>% 
             filter(State == input$state) %>% 
-            select(`Date Announced`,City)
+            select(`Date Announced`,`Detected City`)
         
         #missing cities name are makred as unconfirmed cities
         while(length(ind <- which(state_city_data$City == "")) > 0){
@@ -223,9 +223,6 @@ shinyServer(function(input, output) {
         
         df<- df[order(as.Date(df$`Date Announced`, format="%d/%m/%Y")),]
         
-        tab1_age_deceased<- tab %>% 
-    filter(Current_status=="Deceased") %>% 
-    select(`Date Announced`,Gender,Age,City,State,Notes,Contracted_from,Nationality,`Status Change Date`)
         df
     })
 
