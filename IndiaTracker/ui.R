@@ -10,13 +10,8 @@ require(dplyr)
 require(tidyr)
 require(highcharter)
 
-#reading the raw COVID-19 JSON data(refreshed every 5 minutes)
-#url1 <- "https://api.rootnet.in/covid19-in/unofficial/covid19india.org"
-#loading thhe JSON data fron the web
-#jsonDoc <- fromJSON(url1)
-
-#extracting data in data frame
-#India_data <- jsonDoc$data$rawPatientData
+#State data(refreshes every day)
+statedf <- read.delim("~/Documents/My Projects/COVID-19-INDIA-TRACKER/data/StateCOVID-19.xlsx",sep="$",header = F)
 
 
 #complete state cases dataset
