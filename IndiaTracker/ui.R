@@ -12,7 +12,7 @@ require(highcharter)
 library(readxl)
 
 #State data(refreshes every day)
-StateCOVID_19 <- read_excel("../data/StateCOVID-19.xlsx")
+StateCOVID_19 <- read_excel("/Users/anish.walia/Documents/My Projects/COVID-19-INDIA-TRACKER/data/StateCOVID-19.xlsx")
 StateCOVID_19 <- na.omit(StateCOVID_19)
 
 
