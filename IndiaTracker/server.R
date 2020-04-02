@@ -29,7 +29,7 @@ tab1_recovered<- tab %>%
 shinyServer(function(input, output) {
     
     #reading the raw COVID-19 JSON data(refreshed every 5 minutes)
-   # url1 <- "https://api.rootnet.in/covid19-in/unofficial/covid19india.org"
+    #url1 <- "https://api.rootnet.in/covid19-in/unofficial/covid19india.org"
     #loading thhe JSON data fron the web
     #jsonDoc <- fromJSON(url1)
     
@@ -66,7 +66,11 @@ shinyServer(function(input, output) {
     
 
     
-   
+Pune_count <- tab %>% 
+  filter(`Detected City`== "Pune") %>% 
+  select(`Date Announced`) %>% 
+  group_by(`Date Announced`) %>% 
+  summarise(Count = n())
     
     
     #states and total cases in each state
@@ -75,8 +79,8 @@ shinyServer(function(input, output) {
     state_data <- state_data %>% 
         arrange(desc(ConfCases))
     
-    #removing the NA column(Setting values of 3rd row as NA)
-    while(length(ind <- which(state_data$State == "")) > 0){
+    # removing the NA column(Setting values of 3rd row as NA)
+     while(length(ind <- which(state_data$State == "")) > 0){
       state_data$State[ind] <- "Unconfirmed"
     }
     state_data <- na.omit(state_data)
@@ -158,7 +162,7 @@ shinyServer(function(input, output) {
             filter(`Detected State` == input$state) %>% 
             select(`Date Announced`,`Detected City`)
        
-        #missing cities name are makred as unconfirmed cities
+       # missing cities name are makred as unconfirmed cities
         while(length(ind <- which(state_city_data$`Detected City` == "")) > 0){
             state_city_data$`Detected City`[ind] <- "Unconfirmed"
         }
