@@ -16,6 +16,7 @@ StateCOVID_19 <- read_excel("/Users/anish.walia/Documents/My Projects/COVID-19-I
 StateCOVID_19 <- na.omit(StateCOVID_19)
 
 
+
 #complete state cases dataset
 url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSc_2y5N0I67wDU38DjDh35IZSIS30rQf7_NYZhtYYGU1jJYT6_kDx4YpF-qw0LSlGsBYP8pqM_a1Pd/pubhtml#"
 
@@ -32,6 +33,8 @@ tab <- tab[[1]] %>% html_table
 #setting the column names
 
 tab <- tab %>%  row_to_names(row_number = 1)
+
+
 
 #removing column 1 as it is not necessary:
 tab$`1` <- NA
@@ -103,6 +106,8 @@ dashboardPage(
                 h2("COVID-19 India Tracker",align="center",style="margin-top:-5px;"),
                 br(),
                 
+            fluidRow(
+              
                 box(
                   
                   h4("Confirmed Cases:", align="left") , 
@@ -167,7 +172,7 @@ dashboardPage(
                   dataTableOutput("StateData")
                   
                 ) #end box
-                
+            )#end fliudRow
         ), #end tab1
         
         tabItem(tabName = "tab2",
