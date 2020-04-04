@@ -64,14 +64,6 @@ shinyServer(function(input, output) {
     #removing the NA rows
     tab <- na.omit(tab)
     
-
-    
-Pune_count <- tab %>% 
-  filter(`Detected City`== "Pune") %>% 
-  select(`Date Announced`) %>% 
-  group_by(`Date Announced`) %>% 
-  summarise(Count = n())
-    
     
     #states and total cases in each state
     state_data <- data.frame(table(tab$`Detected State`))
