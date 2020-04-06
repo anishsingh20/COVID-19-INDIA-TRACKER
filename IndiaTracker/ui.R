@@ -21,6 +21,11 @@ StateCOVID_19 <- na.omit(StateCOVID_19)
 
 
 
+
+
+
+
+
 #complete state cases dataset
 url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSc_2y5N0I67wDU38DjDh35IZSIS30rQf7_NYZhtYYGU1jJYT6_kDx4YpF-qw0LSlGsBYP8pqM_a1Pd/pubhtml#"
 
