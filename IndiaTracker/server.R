@@ -9,7 +9,9 @@ require(janitor)
 require(highcharter)
 require(readxl)
 
-#State data(refreshes every day)
+
+
+#State data(refreshes every 5 minutes)
 StateCOVID_19 <- read_excel("/Users/anish.walia/Documents/My Projects/COVID-19-INDIA-TRACKER/data/StateCOVID-19.xlsx")
 StateCOVID_19 <- na.omit(StateCOVID_19)
 
@@ -17,7 +19,7 @@ StateCOVID_19 <- na.omit(StateCOVID_19)
 #complete state cases dataset
 
 #dataset of deceased cases
-tab1_deceased<- tab %>% 
+tab1_deceased<- tab %>%  
   filter(`Current Status`=="Deceased") %>% 
   select(`Date Announced`,`State Patient Number`,Gender,`Age Bracket`,`Detected City`,`Detected State`,Notes,`Contracted from which Patient (Suspected)`,Nationality,`Status Change Date`)
 
