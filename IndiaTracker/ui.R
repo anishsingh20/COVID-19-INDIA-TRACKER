@@ -80,7 +80,7 @@ date_cases <- date_cases[complete.cases(date_cases), ] #removing NA values
 
 
 dashboardPage(
-  skin="purple",
+  skin="black",
   dashboardHeader(title="COVID-19 INDIA TRACKER"),
   
   
