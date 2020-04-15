@@ -9,4 +9,4 @@ A really good COVID-19 tracker for India:https://www.covid19india.org/
 
 2) Complete Raw JSON data : https://api.rootnet.in/covid19-in/unofficial/covid19india.org
 
-The above datasets refreshed every 5 minutes
+The above datasets refreshes every 5 minutes
