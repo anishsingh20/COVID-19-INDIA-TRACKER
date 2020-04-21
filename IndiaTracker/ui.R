@@ -38,6 +38,9 @@ StateCOVID_19 <- StateCOVID_19[[1]]
 #Setting 1 row as column names:
 StateCOVID_19 <- StateCOVID_19 %>%  row_to_names(row_number = 1)
 
+#removing column 1 as it is not necessary:
+StateCOVID_19[,3] <- NA
+StateCOVID_19 <-remove_empty(StateCOVID_19,"cols")
 
 
 

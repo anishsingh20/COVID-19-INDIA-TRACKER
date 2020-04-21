@@ -12,9 +12,24 @@ require(readxl)
 
 
 #State data(refreshes every 5 minutes)
-StateCOVID_19 <- read_excel("/Users/anish.walia/Documents/My Projects/COVID-19-INDIA-TRACKER/data/StateCOVID-19.xlsx")
-StateCOVID_19 <- na.omit(StateCOVID_19)
+#State data(refreshes every day)
+url_state <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSz8Qs1gE_IYpzlkFkCXGcL_BqR8hZieWVi-rphN1gfrO3H4lDtVZs4kd0C3P8Y9lhsT1rhoB-Q_cP4/pubhtml"
 
+#setting the column names
+
+StateCOVID_19 <- url_state %>%
+  html() %>%
+  html_nodes(xpath='//*[@id="1896310216"]/div/table') %>%
+  html_table()
+
+StateCOVID_19 <- StateCOVID_19[[1]]  
+
+#Setting 1 row as column names:
+StateCOVID_19 <- StateCOVID_19 %>%  row_to_names(row_number = 1)
+
+#removing column 1 as it is not necessary:
+StateCOVID_19[,3] <- NA
+StateCOVID_19 <-remove_empty(StateCOVID_19,"cols")
 
 #complete state cases dataset
 
