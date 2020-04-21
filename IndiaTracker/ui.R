@@ -21,8 +21,27 @@ library(readxl)
 
 
 #State data(refreshes every day)
-StateCOVID_19 <- read_excel("/Users/anish.walia/Documents/My Projects/COVID-19-INDIA-TRACKER/data/StateCOVID-19.xlsx")
-StateCOVID_19 <- na.omit(StateCOVID_19)
+url_state <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSz8Qs1gE_IYpzlkFkCXGcL_BqR8hZieWVi-rphN1gfrO3H4lDtVZs4kd0C3P8Y9lhsT1rhoB-Q_cP4/pubhtml"
+
+
+
+
+#setting the column names
+
+StateCOVID_19 <- url_state %>%
+  html() %>%
+  html_nodes(xpath='//*[@id="1896310216"]/div/table') %>%
+  html_table()
+
+StateCOVID_19 <- StateCOVID_19[[1]]  
+
+#Setting 1 row as column names:
+StateCOVID_19 <- StateCOVID_19 %>%  row_to_names(row_number = 1)
+
+
+
+
+
 
 #complete state cases dataset
 url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSc_2y5N0I67wDU38DjDh35IZSIS30rQf7_NYZhtYYGU1jJYT6_kDx4YpF-qw0LSlGsBYP8pqM_a1Pd/pubhtml#"
