@@ -140,6 +140,16 @@ dashboardPage(
                   )) #end head
                 ), #end box
                 
+              
+              box(
+              
+                width = 12,
+                
+                highchartOutput("stackedCovidIndia")
+                  
+                
+              ),
+              
                
                 
                 box(

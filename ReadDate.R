@@ -41,3 +41,6 @@ myfile4 <- getURL('https://api.covid19india.org/csv/latest/raw_data.csv',
 raw_India_data <- read.csv(textConnection(myfile4),header = T)
 head(raw_India_data)
 
+
+Pune_data <- raw_India_data %>% 
+  filter(Detected.District=="Pune")

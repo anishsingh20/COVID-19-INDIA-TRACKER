@@ -74,6 +74,24 @@ shinyServer(function(input, output) {
     })
   
     
+    output$stackedCovidIndia <- renderHighchart({
+      
+      highchart() %>% 
+        hc_xAxis(categories=Case_time_series$Date) %>% 
+        hc_add_series(name="Deaths", data=Case_time_series$Total.Confirmed.Confirmed) %>% 
+        hc_add_series(name="Recoveries",data=Case_time_series$Total.Recovered) %>% 
+        hc_add_series(name="Confirmed Cases", data=Case_time_series$Daily.Deceased) %>% 
+        hc_colors(c("red","green","black")) %>% 
+        hc_add_theme(hc_theme_elementary()) %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="Analysis of count of deaths,recoveries and cases for COVID-19 till date(Cumalative count) in India",align="center")
+      
+      
+      
+    })
+    
+    
+    
     output$StateData <- renderDataTable({
       
       #selecting only first 6 columns of the data frame
