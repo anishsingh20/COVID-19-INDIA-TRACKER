@@ -179,39 +179,8 @@ dashboardPage(
         ), #end tab1
         
         
-        #testing data tab
+       
         tabItem(tabName = "tab2",
-                fluidRow(
-                  
-                    box(
-                      h3("Total samples tested as per ICMR"),
-                      br(),
-                      textOutput("totalTested")
-                    ), 
-                    
-                    box(
-                      width = 4,
-                      h3("Samples tested daily as per ICMR"),
-                      br(),
-                      highchartOutput("TestingChart")
-                    ), 
-                    
-                    box(
-                      width = 4,
-                      h3("COVID-19 test Positivity rate"),
-                      br(),
-                      highchartOutput("PositiveChart")
-                    ), 
-                  
-                  
-                  
-                  
-          
-                ) #end fluidRow
-          
-        ) , #end tabitem
-        
-        tabItem(tabName = "tab3",
                 
                 fluidRow(
                   
@@ -268,9 +237,49 @@ dashboardPage(
                   ) #end fluidRow
                 ), #end tabItem
         
+        #testing data tab
+        tabItem(tabName = "tab3",
+                fluidRow(
+              
+                  
+                        box(
+                          width = 2,
+                          h4("Total samples Tested till date in India"),
+                          p("As per ICMR"),
+                          br(),
+                          textOutput("totalTested"),
+                          tags$head(tags$style("#totalTested{
+                                 color: black;
+                                 font-size: 18px;
+                                 font-family:'Raleway', sans-serif;
+                                 }"
+                          )) #end head
+                        ), 
+                        
+                        box(
+                          width = 10,
+                          h3("Samples tested daily as per ICMR"),
+                          br(),
+                          highchartOutput("TestingChart")
+                        ), 
+                        
+                        box(
+                          width = 12,
+                          h3("COVID-19 test Positivity rate"),
+                          br(),
+                          highchartOutput("PositiveChart")
+                        )
+                        
+                  
+                  
+                  
+                ) #end fluidRow
+                
+        ) , #end tabitem
         
         
-        tabItem(tabName ="tab3",
+        
+        tabItem(tabName ="tab4",
                 
                 fluidRow(
                   

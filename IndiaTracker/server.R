@@ -104,8 +104,46 @@ shinyServer(function(input, output) {
       
     })
     
+    output$totalTested <- renderText({
+      
+      last_row <- nrow(Tested_ICMR)
+      Tested_ICMR$Total.Samples.Tested[last_row]
+      
+    })
     
     output$TestingChart <- renderHighchart({
+      
+      #adding a new column of samples tested daily by calculating the moving differences
+      
+      Tested_ICMR <- Tested_ICMR %>%  mutate(Daily_tested = Total.Samples.Tested - lag(Total.Samples.Tested))
+      
+      Test_data <- Tested_ICMR %>% 
+        select(Daily_tested,Update.Time.Stamp) 
+        
+      colnames(Test_data) <- c("Daily_tested","Date")
+      Test_data <- na.omit(Test_data)
+      
+      hchart(Test_data, "column", hcaes(x = Date, y = Daily_tested), name="Count",color="green") %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="Daily Samples tested for COVID-19 in India as per ICMR",align="center") %>%
+        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
+        hc_add_theme(hc_theme_elementary()) 
+      
+    })
+    
+    output$PositiveChart <- renderHighchart({
+      
+      Test_positive <- Tested_ICMR %>% 
+        select(Test.positivity.rate,Update.Time.Stamp) 
+      
+      colnames(Test_positive) <- c("Positive_rate","Date")
+      Test_positive <- na.omit(Test_positive)
+      
+      hchart(Test_positive, "column", hcaes(x = Date, y = Positive_rate), name="Rate%",color="red") %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="COVID-19 Positive Test rate out of total samples tested",align="center") %>%
+        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
+        hc_add_theme(hc_theme_elementary()) 
       
       
     })
@@ -127,7 +165,7 @@ shinyServer(function(input, output) {
     
     output$statetable <- renderDataTable({
         
-        state_data
+      
         
         
     })
