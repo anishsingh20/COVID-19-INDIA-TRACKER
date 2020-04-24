@@ -61,7 +61,8 @@ dashboardPage(
       menuItem("Stateswise Cases", tabName = "tab2",icon= icon("globe")),
       menuItem("Samples tested across Country", tabName = "tab3",icon= icon("globe")),
       menuItem("Time Series Analysis", tabName = "tab4",icon= icon("cog")),
-      menuItem("Daily Change in Cases", tabName = "tab5",icon=icon("calendar"))
+      menuItem("Daily Change in Cases", tabName = "tab5",icon=icon("calendar")),
+      menuItem("About", tabName = "tab6")
     ) #end sidebarmenu
     
   ), # end dashboardsidebar
