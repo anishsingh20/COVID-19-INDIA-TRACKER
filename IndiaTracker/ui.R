@@ -59,7 +59,7 @@ dashboardPage(
       
       menuItem("Main Menu", tabName = "tab1" ,icon=icon("dashboard")),
       menuItem("Stateswise Cases", tabName = "tab2",icon= icon("globe")),
-      menuItem("Samples tested across Country", tabName = "tab3",icon= icon("globe")),
+      menuItem("Samples tested across Country", tabName = "tab3",icon= icon("hospital")),
       menuItem("Time Series Analysis", tabName = "tab4",icon= icon("cog")),
       menuItem("Daily Change in Cases", tabName = "tab5",icon=icon("calendar")),
       menuItem("About", tabName = "tab6")
