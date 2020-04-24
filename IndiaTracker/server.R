@@ -76,7 +76,8 @@ shinyServer(function(input, output) {
     
     output$StateData <- renderDataTable({
       
-     
+      #selecting only first 6 columns of the data frame
+      StateCOVID_19[1:6]
       
     })
   
