@@ -184,9 +184,23 @@ dashboardPage(
                 fluidRow(
                   
                     box(
-                          h3("Total samples tested as per ICMR"),
-                          br(),
-                          highchartOutput("TestingChart")
+                      h3("Total samples tested as per ICMR"),
+                      br(),
+                      textOutput("totalTested")
+                    ), 
+                    
+                    box(
+                      width = 4,
+                      h3("Samples tested daily as per ICMR"),
+                      br(),
+                      highchartOutput("TestingChart")
+                    ), 
+                    
+                    box(
+                      width = 4,
+                      h3("COVID-19 test Positivity rate"),
+                      br(),
+                      highchartOutput("PositiveChart")
                     ), 
                   
                   
