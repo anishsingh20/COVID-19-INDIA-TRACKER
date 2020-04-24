@@ -11,88 +11,18 @@ require(readxl)
 
 
 
-#State data(refreshes every 5 minutes)
-#State data(refreshes every day)
-url_state <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSz8Qs1gE_IYpzlkFkCXGcL_BqR8hZieWVi-rphN1gfrO3H4lDtVZs4kd0C3P8Y9lhsT1rhoB-Q_cP4/pubhtml"
 
-#setting the column names
 
-StateCOVID_19 <- url_state %>%
-  html() %>%
-  html_nodes(xpath='//*[@id="1896310216"]/div/table') %>%
-  html_table()
 
-StateCOVID_19 <- StateCOVID_19[[1]]  
-
-#Setting 1 row as column names:
-StateCOVID_19 <- StateCOVID_19 %>%  row_to_names(row_number = 1)
-
-#removing column 1 as it is not necessary:
-StateCOVID_19[,3] <- NA
-StateCOVID_19 <-remove_empty(StateCOVID_19,"cols")
 
 #complete state cases dataset
 
-#dataset of deceased cases
-tab1_deceased<- tab %>%  
-  filter(`Current Status`=="Deceased") %>% 
-  select(`Date Announced`,`State Patient Number`,Gender,`Age Bracket`,`Detected City`,`Detected State`,Notes,`Contracted from which Patient (Suspected)`,Nationality,`Status Change Date`)
-
-tab1_recovered<- tab %>% 
-    filter(`Current Status`=="Recovered") %>% 
-  select(`Date Announced`,`State Patient Number`,Gender,`Age Bracket`,`Detected City`,`Detected State`,Notes,`Contracted from which Patient (Suspected)`,Nationality,`Status Change Date`)
-    
 #server logic
 shinyServer(function(input, output) {
     
-    #reading the raw COVID-19 JSON data(refreshed every 5 minutes)
-    #url1 <- "https://api.rootnet.in/covid19-in/unofficial/covid19india.org"
-    #loading thhe JSON data fron the web
-    #jsonDoc <- fromJSON(url1)
-    
-    #extracting data in data frame
-    #India_data <- jsonDoc$data$rawPatientData
-    
-    url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vSc_2y5N0I67wDU38DjDh35IZSIS30rQf7_NYZhtYYGU1jJYT6_kDx4YpF-qw0LSlGsBYP8pqM_a1Pd/pubhtml#"
-    
-    #reading the table from the URL using rvest package
-    
-    h1<- read_html(url)
-    html_text(h1)
+   
     
     
-    tab <- h1 %>% html_nodes("table")
-    tab <- tab[[1]] %>% html_table
-    
-    
-    #setting the column names
-    
-    tab <- tab %>%  row_to_names(row_number = 1)
-    
-    #removing column 1 as it is not necessary:
-    tab$`1` <- NA
-    tab <-remove_empty(tab,"cols")
-    
-
-    
-    
-    #removing the NA column
-    tab <- tab[colSums(!is.na(tab)) > 0]
-    #removing the NA rows
-    tab <- na.omit(tab)
-    
-    
-    #states and total cases in each state
-    state_data <- data.frame(table(tab$`Detected State`))
-    colnames(state_data) <- c("State","ConfCases")
-    state_data <- state_data %>% 
-        arrange(desc(ConfCases))
-    
-    # removing the NA column(Setting values of 3rd row as NA)
-     while(length(ind <- which(state_data$State == "")) > 0){
-      state_data$State[ind] <- "Unconfirmed"
-    }
-    state_data <- na.omit(state_data)
     
     
     
