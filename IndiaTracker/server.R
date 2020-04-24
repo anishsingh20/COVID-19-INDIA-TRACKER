@@ -26,7 +26,7 @@ shinyServer(function(input, output) {
   
   #dataset with summariesed case counts of statese
   StateCOVID_19 <- read.csv(textConnection(myfile1), header=T)
-  head(StateCOVID_19)
+ 
   
   
   #dataset with time series data of Indian states
@@ -34,7 +34,7 @@ shinyServer(function(input, output) {
                     ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
   
   State_time_series <- read.csv(textConnection(myfile2),header = T)
-  head(State_time_series)
+  
   
   
   #total Indian cases time series and daily changes
@@ -42,7 +42,21 @@ shinyServer(function(input, output) {
                     ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
   
   Case_time_series <- read.csv(textConnection(myfile3),header = T)
-  head(Case_time_series)
+  
+  
+  
+  myfile5 <- getURL('https://api.covid19india.org/csv/latest/statewise_tested_numbers_data.csv',
+                    ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
+  
+  State_tested<- read.csv(textConnection(myfile5), header = T)
+  
+  
+  
+  
+  myfile6 <- getURL('https://api.covid19india.org/csv/latest/tested_numbers_icmr_data.csv',
+                    ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
+  
+  Tested_ICMR <- read.csv(textConnection(myfile6),header = T)
   
     
     
@@ -91,6 +105,10 @@ shinyServer(function(input, output) {
     })
     
     
+    output$TestingChart <- renderHighchart({
+      
+      
+    })
     
     output$StateData <- renderDataTable({
       

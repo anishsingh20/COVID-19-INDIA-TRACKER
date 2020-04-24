@@ -45,6 +45,20 @@ Case_time_series <- read.csv(textConnection(myfile3),header = T)
 head(Case_time_series)
 
 
+myfile5 <- getURL('https://api.covid19india.org/csv/latest/statewise_tested_numbers_data.csv',
+                  ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
+
+State_tested<- read.csv(textConnection(myfile5), header = T)
+
+
+
+
+myfile6 <- getURL('https://api.covid19india.org/csv/latest/tested_numbers_icmr_data.csv',
+                  ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
+
+Tested_ICMR <- read.csv(textConnection(myfile6),header = T)
+
+
 
 
 dashboardPage(
@@ -164,7 +178,26 @@ dashboardPage(
             )#end fliudRow
         ), #end tab1
         
+        
+        #testing data tab
         tabItem(tabName = "tab2",
+                fluidRow(
+                  
+                    box(
+                          h3("Total samples tested as per ICMR"),
+                          br(),
+                          highchartOutput("TestingChart")
+                    ), 
+                  
+                  
+                  
+                  
+          
+                ) #end fluidRow
+          
+        ) , #end tabitem
+        
+        tabItem(tabName = "tab3",
                 
                 fluidRow(
                   
