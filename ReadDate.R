@@ -43,4 +43,4 @@ head(raw_India_data)
 
 
 Pune_data <- raw_India_data %>% 
-  filter(Detected.District=="Pune")
+  filter(Detected.District=="Dehradun")
