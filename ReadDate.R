@@ -6,6 +6,7 @@ library(RCurl)
 #1) https://api.covid19india.org/csv/latest/state_wise_daily.csv #time series of states
 #2) https://api.covid19india.org/csv/latest/state_wise.csv  #state summarised data
 #3) https://api.covid19india.org/csv/latest/case_time_series.csv #cases time series
+#4) https://api.covid19india.org/csv/latest/raw_data.csv # India's raw data
  
 #open connection to the file which is a efficient way.
 myfile1 <- getURL('https://api.covid19india.org/csv/latest/state_wise.csv', 
@@ -32,4 +33,11 @@ Case_time_series <- read.csv(textConnection(myfile3),header = T)
 head(Case_time_series)
  
 
+
+#Raw data with all the information
+myfile4 <- getURL('https://api.covid19india.org/csv/latest/raw_data.csv',
+                  ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
+
+raw_India_data <- read.csv(textConnection(myfile4),header = T)
+head(raw_India_data)
 
