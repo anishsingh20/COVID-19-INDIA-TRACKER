@@ -51,24 +51,25 @@ shinyServer(function(input, output) {
     
     output$Confirmed <- renderText({
         #no of rows in the raw dataset represents the total cases in India
-      
+        StateCOVID_19$Confirmed[1]
        
     })
     
     output$Deaths <- renderText({
       
-      
+      StateCOVID_19$Deaths[1]
        
     })
     
     output$Recoveries <- renderText({
       
-   
+      StateCOVID_19$Recovered[1]
         
     })
     
     output$Active <- renderText({
       
+      StateCOVID_19$Active[1]
        
     })
   

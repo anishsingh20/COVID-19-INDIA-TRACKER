@@ -83,6 +83,20 @@ dashboardPage(
                 
             fluidRow(
               
+              box(
+                
+                h4("Active Cases:", align="left") , 
+                textOutput("Active"), #end text Output
+                width=3,
+                tags$head(tags$style("#Active{
+                                 color: blue;
+                                 font-size: 18px;
+                                 font-family:'Raleway', sans-serif;
+                                 }"
+                )) #end head
+              ) ,
+              
+              
                 box(
                   
                   h4("Confirmed Cases:", align="left") , 
@@ -126,19 +140,7 @@ dashboardPage(
                   )) #end head
                 ), #end box
                 
-                box(
-                  
-                  h4("Active Cases:", align="left") , 
-                  textOutput("Active"), #end text Output
-                  width=3,
-                  tags$head(tags$style("#Active{
-                                 color: green;
-                                 font-size: 18px;
-                                 font-family:'Raleway', sans-serif;
-                                 }"
-                  )) #end head
-                ) ,
-                
+               
                 
                 box(
                   width=12,
@@ -164,7 +166,7 @@ dashboardPage(
                   box(
                     width = 12,
                     
-                    selectInput("state", label = "Select State",choices = state_data[,1])
+                    selectInput("state", label = "Select State",choices = StateCOVID_19$State)
                     
                     
                   ), #end box
