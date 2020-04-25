@@ -268,9 +268,10 @@ dashboardPage(
                         
                         box(
                           width = 12,
-                          h3("COVID-19 Test Positivity rate"),
+                          h3("COVID-19 Test Positivity rate and samples tested daily"),
+                          p("Few days have missing data"),
                           br(),
-                          highchartOutput("RateTable")
+                          dataTableOutput("RateTable")
                         )
                   
                 ) #end fluidRow

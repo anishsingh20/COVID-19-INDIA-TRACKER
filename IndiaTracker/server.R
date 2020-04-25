@@ -116,27 +116,21 @@ shinyServer(function(input, output) {
     #tab 3 details
    output$totalTested <- renderText({
      
-     Tested_ICMR$Total.Samples.Tested[nrow(Tested_ICMR)]
-     
+     val=Tested_ICMR$Total.Samples.Tested[nrow(Tested_ICMR)]
+     val
      
    })
     
     
-    output$RateTable<- renderHighchart({
+    output$RateTable<- renderDataTable({
       
       
+      Tab <- Tested_ICMR %>% 
+        select(Update.Time.Stamp,Total.Samples.Tested,Test.positivity.rate) %>% 
+        mutate(Daily_tested = Total.Samples.Tested - lag(Total.Samples.Tested))
       
-      Test_positive <- Tested_ICMR %>% 
-        select(Test.positivity.rate,Update.Time.Stamp) 
+      Tab
       
-      colnames(Test_positive) <- c("Rate","Date")
-      
-      
-      hchart(Test_positive, "column", hcaes(x = Rate, y = Date), name="Rate%",color="green") %>% 
-        hc_exporting(enabled = TRUE) %>%
-        hc_title(text="Daily Samples tested for COVID-19 in India as per ICMR",align="center") %>%
-        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
-        hc_add_theme(hc_theme_elementary()) 
       
       
     })
