@@ -166,17 +166,41 @@ shinyServer(function(input, output) {
     
    
   
-    output$TimeSeriesPlot <- renderHighchart({
+    output$ConfDaily <- renderHighchart({
       
       
-      hchart(Case_time_series, "column", hcaes(x = Date, y = Daily.Confirmed), name="Count",color="green") %>% 
+      hchart(Case_time_series, "column", hcaes(x = Date, y = Daily.Confirmed), name="Confirmed Count",color="black") %>% 
         hc_exporting(enabled = TRUE) %>%
-        hc_title(text="Daily Samples tested for COVID-19 in India as per ICMR",align="center") %>%
+        hc_title(text="New Confirmed COVID-19 cases everyday",align="center") %>%
         hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
         hc_add_theme(hc_theme_elementary()) 
       
         
         
+    })
+    
+    
+    output$DeathsDaily <- renderHighchart({
+      
+      hchart(Case_time_series, "column", hcaes(x = Date, y = Daily.Deceased), name="Confirmed Deaths",color="red") %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="New deaths reported everyday",align="center") %>%
+        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
+        hc_add_theme(hc_theme_elementary()) 
+      
+      
+    })
+    
+    
+    output$RecoveredDaily <- renderHighchart({
+      
+      
+      hchart(Case_time_series, "column", hcaes(x = Date, y = Daily.Recovered), name="Confirmed Recoveries",color="green") %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="New recoveries reported everyday",align="center") %>%
+        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
+        hc_add_theme(hc_theme_elementary()) 
+      
     })
    
 
