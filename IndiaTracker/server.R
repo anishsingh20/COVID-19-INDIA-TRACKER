@@ -101,15 +101,37 @@ shinyServer(function(input, output) {
         hc_title(text="Analysis of count of deaths,recoveries and cases for COVID-19 till date(Cumalative count) in India",align="center")
       
       
+    })
+     
+    
+    output$StateData <- renderDataTable({
+      
+      #selecting only first 6 columns of the data frame
+      StateCOVID_19[1:6]
       
     })
     
-    output$totalTested <- renderText({
+    
+    #tab 3 details
+   output$totalTested <- renderText({
+     
+     val = Tested_ICMR$Total.Samples.Tested[nrow(Tested_ICMR)]
+     val
+     
+   })
+    
+    
+    output$PositiveTable <- renderDataTable({
       
-      last_row <- nrow(Tested_ICMR)
-      Tested_ICMR$Total.Samples.Tested[last_row]
+      tab <- Tested_ICMR %>% 
+        select(Total.Samples.Tested,Total.Positive.Cases,Test.positivity.rate) 
+      
+      
+      tab
+      
       
     })
+    
     
     output$TestingChart <- renderHighchart({
       
@@ -119,7 +141,7 @@ shinyServer(function(input, output) {
       
       Test_data <- Tested_ICMR %>% 
         select(Daily_tested,Update.Time.Stamp) 
-        
+      
       colnames(Test_data) <- c("Daily_tested","Date")
       Test_data <- na.omit(Test_data)
       
@@ -130,76 +152,18 @@ shinyServer(function(input, output) {
         hc_add_theme(hc_theme_elementary()) 
       
     })
+      
     
-    output$PositiveChart <- renderHighchart({
-      
-      Test_positive <- Tested_ICMR %>% 
-        select(Test.positivity.rate,Update.Time.Stamp) 
-      
-      colnames(Test_positive) <- c("Positive_rate","Date")
-      Test_positive <- na.omit(Test_positive)
-      
-      hchart(Test_positive, "column", hcaes(x = Date, y = Positive_rate), name="Rate%",color="red") %>% 
-        hc_exporting(enabled = TRUE) %>%
-        hc_title(text="COVID-19 Positive Test rate out of total samples tested",align="center") %>%
-        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
-        hc_add_theme(hc_theme_elementary()) 
-      
-      
-    })
     
-    output$StateData <- renderDataTable({
-      
-      #selecting only first 6 columns of the data frame
-      StateCOVID_19[1:6]
-      
-    })
+   
   
     output$TimeSeriesPlot <- renderHighchart({
       
-    
+      
         
         
     })
    
-    
-    output$statetable <- renderDataTable({
-        
-      
-        
-        
-    })
-    
-    
-    output$StateConfChart <- renderHighchart({
-        
-       
-        
-    })
-    
-    
-    output$StateCityCases <- renderHighchart({
-        
-       
-        
-        
-        
-        
-        
-        
-    })
-    
-    
-    output$StateDate <- renderHighchart({
-        
-        
-        
-    })
-    
-    
-    output$CityDatetable <- renderDataTable({
-    
-       
-    })
+
 
 })

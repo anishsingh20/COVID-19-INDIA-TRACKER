@@ -56,3 +56,18 @@ myfile6 <- getURL('https://api.covid19india.org/csv/latest/tested_numbers_icmr_d
                   ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
 
 Tested_ICMR <- read.csv(textConnection(myfile6),header = T)
+
+
+
+
+Test_positive <- Tested_ICMR %>% 
+  select(Test.positivity.rate,Update.Time.Stamp) 
+
+colnames(Test_positive) <- c("Positive_rate","Date")
+Test_positive <- na.omit(Test_positive)
+
+Test_positive$Positive_rate <- as.double(Test_positive$Positive_rate)
+
+
+
+

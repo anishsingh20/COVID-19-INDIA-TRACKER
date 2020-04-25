@@ -239,25 +239,27 @@ dashboardPage(
         
         #testing data tab
         tabItem(tabName = "tab3",
+                
                 fluidRow(
               
                   
                         box(
-                          width = 2,
-                          h4("Total samples Tested till date in India"),
+                          
+                          width = 12,
+                          h2("Total samples Tested till date in India"),
                           p("As per ICMR"),
                           br(),
                           textOutput("totalTested"),
                           tags$head(tags$style("#totalTested{
                                  color: black;
-                                 font-size: 18px;
+                                 font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
                           )) #end head
                         ), 
                         
                         box(
-                          width = 10,
+                          width = 12,
                           h3("Samples tested daily as per ICMR"),
                           br(),
                           highchartOutput("TestingChart")
@@ -265,9 +267,9 @@ dashboardPage(
                         
                         box(
                           width = 12,
-                          h3("COVID-19 test Positivity rate"),
+                          h3("COVID-19 Test Positivity rate"),
                           br(),
-                          highchartOutput("PositiveChart")
+                          renderDataTable("PositiveTable")
                         )
                         
                   
