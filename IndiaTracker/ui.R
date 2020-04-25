@@ -289,13 +289,14 @@ dashboardPage(
                     
                     width = 12,
                     h3("Confirmed cases reported Every day:"),
-                    highchartOutput("TimeSeriesPlot")
+                    highchartOutput("ConfDaily")
                 ), #end box
                 
                 box(
                   
                   width = 12,
                   h3("Deaths reported every day:"),
+                  highchartOutput("DeathsDaily")
                 ),
                 
                 
@@ -303,6 +304,7 @@ dashboardPage(
                   
                   width = 12,
                   h3("Recovered patients every day:"),
+                  highchartOutput("RecoveredDaily")
                   
                 )
                   
