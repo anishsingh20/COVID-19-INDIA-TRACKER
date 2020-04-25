@@ -8,6 +8,7 @@ require(jsonlite)
 require(janitor)
 require(highcharter)
 require(readxl)
+require(RCurl)
 
 
 
@@ -115,24 +116,32 @@ shinyServer(function(input, output) {
     #tab 3 details
    output$totalTested <- renderText({
      
-     val = Tested_ICMR$Total.Samples.Tested[nrow(Tested_ICMR)]
-     val
+     Tested_ICMR$Total.Samples.Tested[nrow(Tested_ICMR)]
+     
      
    })
     
     
-    output$PositiveTable <- renderDataTable({
-      
-      tab <- Tested_ICMR %>% 
-        select(Total.Samples.Tested,Total.Positive.Cases,Test.positivity.rate) 
+    output$RateTable<- renderHighchart({
       
       
-      tab
+      
+      Test_positive <- Tested_ICMR %>% 
+        select(Test.positivity.rate,Update.Time.Stamp) 
+      
+      colnames(Test_positive) <- c("Rate","Date")
+      
+      
+      hchart(Test_positive, "column", hcaes(x = Rate, y = Date), name="Rate%",color="green") %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="Daily Samples tested for COVID-19 in India as per ICMR",align="center") %>%
+        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
+        hc_add_theme(hc_theme_elementary()) 
       
       
     })
-    
-    
+      
+  
     output$TestingChart <- renderHighchart({
       
       #adding a new column of samples tested daily by calculating the moving differences
@@ -160,6 +169,12 @@ shinyServer(function(input, output) {
     output$TimeSeriesPlot <- renderHighchart({
       
       
+      hchart(Case_time_series, "column", hcaes(x = Date, y = Daily.Confirmed), name="Count",color="green") %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="Daily Samples tested for COVID-19 in India as per ICMR",align="center") %>%
+        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
+        hc_add_theme(hc_theme_elementary()) 
+      
         
         
     })
@@ -167,3 +182,5 @@ shinyServer(function(input, output) {
 
 
 })
+
+

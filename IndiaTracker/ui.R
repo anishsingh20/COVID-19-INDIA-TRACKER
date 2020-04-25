@@ -11,7 +11,7 @@ require(tidyr)
 require(highcharter)
 library(readxl)
 require(purrr)
-
+require(RCurl)
 
 
 
@@ -237,6 +237,7 @@ dashboardPage(
                   ) #end fluidRow
                 ), #end tabItem
         
+        
         #testing data tab
         tabItem(tabName = "tab3",
                 
@@ -269,11 +270,8 @@ dashboardPage(
                           width = 12,
                           h3("COVID-19 Test Positivity rate"),
                           br(),
-                          renderDataTable("PositiveTable")
+                          highchartOutput("RateTable")
                         )
-                        
-                  
-                  
                   
                 ) #end fluidRow
                 
@@ -281,25 +279,36 @@ dashboardPage(
         
         
         
-        tabItem(tabName ="tab4",
+        tabItem(tabName ="tab5",
                 
                 fluidRow(
                   
                   
-                       
-                       box(
-                         
-                         width = 12,
-                         h3("Time series plot of daily confirmed cases:"),
-                         highchartOutput("TimeSeriesPlot")
-                         
-                        
-                         
-                         
-                       ) #end box
-                   
+                  
+                  box(
+                    
+                    width = 12,
+                    h3("Confirmed cases reported Every day:"),
+                    highchartOutput("TimeSeriesPlot")
+                ), #end box
+                
+                box(
+                  
+                  width = 12,
+                  h3("Deaths reported every day:"),
+                ),
+                
+                
+                box(
+                  
+                  width = 12,
+                  h3("Recovered patients every day:"),
+                  
+                )
+                  
                   
                 ) #end fluidRow
+              
                 
         ) #end tabitem
         
