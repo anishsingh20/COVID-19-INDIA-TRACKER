@@ -9,6 +9,7 @@ require(janitor)
 require(highcharter)
 require(readxl)
 require(RCurl)
+require(viridis)
 
 
 
@@ -204,8 +205,7 @@ shinyServer(function(input, output) {
       #removing the first row as it has the totals
       chart_data <- StateCOVID_19[-1,]
       
-      hchart(chart_data, "treemap", hcaes(x = State, value = Confirmed, color = Confirmed))  
-      
+      hchart(chart_data, "treemap", hcaes(x = State, value = Confirmed, color = Confirmed))
   
       
     })
@@ -216,8 +216,28 @@ shinyServer(function(input, output) {
       #removing the first row as it has the totals
       chart_data <- StateCOVID_19[-1,]
       
-      hchart(chart_data, "treemap", hcaes(x = State, value = Active,color=Active))  
+      hchart(chart_data, "treemap", hcaes(x = State, value = Active,color=Active))
       
+      
+    })
+    
+    output$StateDeaths <- renderHighchart({
+      
+      #removing the first row as it has the totals
+      chart_data <- StateCOVID_19[-1,]
+      
+      hchart(chart_data, "treemap", hcaes(x = State, value = Deaths, color = Deaths))
+      
+      
+    })
+    
+    
+    output$StateRecoveries <- renderHighchart({
+      
+      #removing the first row as it has the totals
+      chart_data <- StateCOVID_19[-1,]
+      
+      hchart(chart_data, "treemap", hcaes(x = State, value = Recovered, color = Recovered))
       
     })
 
