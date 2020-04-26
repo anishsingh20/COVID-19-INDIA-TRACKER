@@ -234,54 +234,9 @@ dashboardPage(
                     highchartOutput("ratesPlotDeath")
                     
                     
-                  ),
-                  
-                  
-                  box(
-                    width = 12,
-                    
-                    selectInput("state", label = "Select State",choices = StateCOVID_19$State_code)
-                    
-                    
-                  ), #end box
-                  
-                  box(
-                    width = 6,
-                    
-                    highchartOutput("StateCasesTimeSeries")
-                    
-                    
-                  ), 
-                  
-                  box(
-                    width = 6,
-                    
-                    highchartOutput("StateDate")
-                    
-                    
-                  ), #end box
-                  
-                  
-                  box(
-                    width = 6,
-                    align="center",
-                    h3("Table of cumalative confirmed cases in each city of selected state till date:"),
-                    p("Refreshes every 5 minutes"),
-                    dataTableOutput("CityDatetable")
-                    
-                  ) ,
-                  
-                  box(
-                    width = 6,
-                    align="center",
-                    h3("Table of cumalative confirmed cases in each state till date:"),
-                    p("Refreshes every 5 minutes"),
-                    dataTableOutput("statetable")
-                    
-                    
                   ) #end box
-                  ) #end fluidRow
-                ), #end tabItem
+              ) #end fluidRow
+        ), #end tabItem
         
         
         #testing data tab
@@ -325,6 +280,29 @@ dashboardPage(
         ) , #end tabitem
         
         
+        tabItem(tabName = "tab4",
+                
+                
+            fluidRow(
+                
+                box(
+                  width = 12,
+                  
+                  selectInput("state", label = "Select State",choices = StateCOVID_19$State_code)
+                  
+                  
+                ), #end box
+                
+                box(
+                  width = 12,
+                  
+                  highchartOutput("StateCasesTimeSeries")
+               )
+                
+                
+            )# end fluidRow 
+          
+        ), #end tab4
         
         tabItem(tabName ="tab5",
                 
