@@ -130,8 +130,12 @@ shinyServer(function(input, output) {
         select(Update.Time.Stamp,Total.Samples.Tested,Test.positivity.rate) %>% 
         mutate(Daily_tested = Total.Samples.Tested - lag(Total.Samples.Tested))
       
-      #ordering the dates
-      Tab=  Tab[order(as.Date(Tab$Update.Time.Stamp, format="%d/%m/%Y")),]
+      #converting the char vector to Date vector
+      Tab$Update.Time.Stamp =  as.Date(Tab$Update.Time.Stamp, format="%d/%m/%Y")
+      
+      #ordering by latest dates
+      Tab = Tab %>% arrange(Update.Time.Stamp)
+      
       
       Tab
       
