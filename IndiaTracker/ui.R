@@ -240,7 +240,7 @@ dashboardPage(
                   box(
                     width = 12,
                     
-                    selectInput("state", label = "Select State",choices = StateCOVID_19$State)
+                    selectInput("state", label = "Select State",choices = StateCOVID_19$State_code)
                     
                     
                   ), #end box
@@ -248,7 +248,7 @@ dashboardPage(
                   box(
                     width = 6,
                     
-                    highchartOutput("StateCityCases")
+                    highchartOutput("StateCasesTimeSeries")
                     
                     
                   ), 

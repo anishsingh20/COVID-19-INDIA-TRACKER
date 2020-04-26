@@ -83,6 +83,7 @@ recovery_rate <- Case_time_series %>%
          Death_rate = round((Total.Deceased/Total.Confirmed)*100,2))
 
 
+
 State_rate <- StateCOVID_19 %>% 
   select(State,Confirmed,Deaths,Recovered) %>% 
   mutate(Recover_rate = round((Recovered/Confirmed)*100,2),
@@ -90,5 +91,23 @@ State_rate <- StateCOVID_19 %>%
 
   
 
+#selecting the specific State and sprading the data
+State_time_series_long <- State_time_series %>% 
+  select(MH,Status,Date) %>% 
+  spread(Status,MH) 
+
+State_time_series_long$Date <- as.Date(State_time_series_long$Date,format="%d-%B-%y")
+  
+State_time_series_conf <- State_time_series_long %>% 
+  select(Date,Confirmed)
+
+
+State_time_series_Death <- State_time_series_long %>% 
+  select(Date,Deceased)
+
+State_time_series_Recovered <- State_time_series_long %>% 
+  select(Date,Recovered)
+  
+  
 
 
