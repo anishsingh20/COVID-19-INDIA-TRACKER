@@ -217,12 +217,25 @@ dashboardPage(
                   #recovery and death rates statewise
                   box(
                     
-                    h3("Recovery and Death rates for each state out of Total confirmed:"),
+                    width = 6,
+                    h3("Recovery Rates for each state out of Total confirmed:"),
                     br(),
-                    highchartOutput("ratesPlot")
+                    highchartOutput("ratesPlotRecovery")
                     
                     
                   ),
+                  
+                  
+                  box(
+                    
+                    width = 6,
+                    h3(" Death rates for each state out of Total confirmed:"),
+                    br(),
+                    highchartOutput("ratesPlotDeath")
+                    
+                    
+                  ),
+                  
                   
                   box(
                     width = 12,

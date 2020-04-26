@@ -244,6 +244,56 @@ shinyServer(function(input, output) {
         hc_add_theme(hc_theme_ffx())
       
     })
+    
+    
+    output$ratesPlotRecovery <- renderHighchart({
+      
+      
+      #making a dataframe with recovery and death rates
+      State_rate_recover <- StateCOVID_19 %>% 
+        select(State,Confirmed,Deaths,Recovered) %>% 
+        mutate(Recover_rate = round((Recovered/Confirmed)*100,2))
+      
+      #converting NaNs produced to 0
+      State_rate_recover <- na.omit(State_rate_recover)
+      
+      State_rate_recover <- State_rate_recover %>% arrange(desc(Recover_rate))
+      
+      
+      highchart() %>% 
+        hc_xAxis(categories=State_rate_recover$State) %>% 
+        hc_add_series(name="Recovery Rate %", data=State_rate_recover$Recover_rate, type="column") %>% 
+        hc_colors(c("orange")) %>% 
+        hc_add_theme(hc_theme_ffx()) %>%  
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="Recovery rates of each Indian State",align="center") %>% 
+        hc_subtitle(text="Calculated out of total Confirmed case count",align="center")
+      
+      
+    })
+    
+    output$ratesPlotDeath <- renderHighchart({
+      
+      State_rate_death <- StateCOVID_19 %>% 
+        select(State,Confirmed,Deaths,Recovered) %>% 
+        mutate(Death_rate = round((Deaths/Confirmed)*100,2))
+      
+      #converting NaNs produced to 0
+      State_rate_death <- na.omit(State_rate_death)
+      
+      State_rate_death <- State_rate_death %>% arrange(desc(Death_rate))
+      
+      
+      highchart() %>% 
+        hc_xAxis(categories=State_rate_death$State) %>% 
+        hc_add_series(name="Death Rate %",data=State_rate_death$Death_rate, type="column") %>% 
+        hc_colors(c("red")) %>% 
+        hc_add_theme(hc_theme_ffx()) %>%  
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="Death rates of each Indian State",align="center") %>% 
+        hc_subtitle(text="Calculated out of total Confirmed case count",align="center")
+      
+    })
 
 
 })
