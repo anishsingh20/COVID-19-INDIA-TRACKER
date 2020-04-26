@@ -184,12 +184,35 @@ dashboardPage(
                 
                 fluidRow(
                   
-                  box(width = 12,
+                  box(width = 6,
                       
                       h3("Confirmed cases in Each Indian state:"),
                       br(),
-                      highchartOutput("StateConfChart")
+                      highchartOutput("StateConf")
                     ) ,#end box
+                  
+                  box(width = 6,
+                      
+                      h3("Active cases in Each India States"),
+                      br(),
+                      highchartOutput("StateActive")
+                  ),
+                  
+                  box(width = 6,
+                      
+                      h3("Confirmed Deaths in Each Indian state:"),
+                      br(),
+                      highchartOutput("StateDeaths")
+                  ) ,
+                  
+                  
+                  box(width = 6,
+                      
+                      h3("Confirmed Recoveries in Each Indian state:"),
+                      br(),
+                      highchartOutput("StateRecoveries")
+                  ) ,
+                  
                   
                   box(
                     width = 12,
