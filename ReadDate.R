@@ -69,5 +69,8 @@ Test_positive <- na.omit(Test_positive)
 Test_positive$Positive_rate <- as.double(Test_positive$Positive_rate)
 
 
+#Finding Recovery Rate
+recovery_rate <- Case_time_series %>% 
+  
 
 
