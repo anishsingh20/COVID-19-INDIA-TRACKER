@@ -198,26 +198,15 @@ shinyServer(function(input, output) {
     })
    
     
-    output$StateConfChart <- renderHighchart({
+    output$StateConf <- renderHighchart({
       
       
       #removing the first row as it has the totals
       chart_data <- StateCOVID_19[-1,]
-        
       
-      highchart() %>% 
-        hc_xAxis(categories=chart_data$State) %>% 
-        hc_add_series(name="Deaths", data=chart_data$Deaths,type = "treemap") %>% 
-        hc_add_series(name="Recoveries",data=chart_data$Recovered, type = "treemap") %>% 
-        hc_add_series(name="Confirmed Cases", data=chart_data$Confirmed,type = "treemap") %>% 
-        hc_add_series(name="Active", data=chart_data$Active,type = "treemap") %>% 
-        hc_colors(c("red","green","black","blue")) %>% 
-        hc_add_theme(hc_theme_elementary()) %>% 
-        hc_exporting(enabled = TRUE) %>%
-        hc_title(text="Analysis of count of deaths,recoveries and cases for COVID-19 till date(Cumalative count) in Indian States",align="center")
+      hchart(chart_data, "treemap", hcaes(x = State, value = Confirmed, color = Confirmed))  
       
-      
-      
+  
       
     })
 
