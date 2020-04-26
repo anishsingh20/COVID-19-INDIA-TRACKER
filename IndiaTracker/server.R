@@ -197,6 +197,24 @@ shinyServer(function(input, output) {
       
     })
    
+    
+    output$StateConfChart <- renderHighchart({
+      
+      highchart() %>% 
+        hc_xAxis(categories=StateCOVID_19$Last_Updated_Time) %>% 
+        hc_add_series_boxplot(name="Deaths", data=StateCOVID_19$Deaths) %>% 
+        hc_add_series_boxplot(name="Recoveries",data=StateCOVID_19$Recovered) %>% 
+        hc_add_series_boxplot(name="Confirmed Cases", data=StateCOVID_19$Confirmed) %>% 
+        hc_add_series_boxplot(name="Active", data=StateCOVID_19$Active)
+        hc_colors(c("red","green","black","blue")) %>% 
+        hc_add_theme(hc_theme_elementary()) %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="Analysis of count of deaths,recoveries and cases for COVID-19 till date(Cumalative count) in India",align="center")
+      
+      
+      
+      
+    })
 
 
 })
