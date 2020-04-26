@@ -98,7 +98,7 @@ shinyServer(function(input, output) {
         hc_add_series(name="Recoveries",data=Case_time_series$Total.Recovered) %>% 
         hc_add_series(name="Confirmed Cases", data=Case_time_series$Total.Confirmed) %>% 
         hc_colors(c("red","green","black")) %>% 
-        hc_add_theme(hc_theme_flat()) %>% 
+        hc_add_theme(hc_theme_ffx()) %>%  
         hc_exporting(enabled = TRUE) %>%
         hc_title(text="Analysis of count of deaths,recoveries and cases for COVID-19 till date(Cumalative count) in India",align="center")
       
@@ -149,11 +149,11 @@ shinyServer(function(input, output) {
       colnames(Test_data) <- c("Daily_tested","Date")
       Test_data <- na.omit(Test_data)
       
-      hchart(Test_data, "column", hcaes(x = Date, y = Daily_tested), name="Count",color="green") %>% 
+      hchart(Test_data, "column", hcaes(x = Date, y = Daily_tested), name="Count",color="orange") %>% 
         hc_exporting(enabled = TRUE) %>%
         hc_title(text="Daily Samples tested for COVID-19 in India as per ICMR",align="center") %>%
         hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
-        hc_add_theme(hc_theme_flat())
+        hc_add_theme(hc_theme_ffx())
       
     })
       
@@ -168,7 +168,7 @@ shinyServer(function(input, output) {
         hc_exporting(enabled = TRUE) %>%
         hc_title(text="New Confirmed COVID-19 cases everyday",align="center") %>%
         hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
-        hc_add_theme(hc_theme_flat())
+        hc_add_theme(hc_theme_ffx())
       
         
         
@@ -181,7 +181,7 @@ shinyServer(function(input, output) {
         hc_exporting(enabled = TRUE) %>%
         hc_title(text="New deaths reported everyday",align="center") %>%
         hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
-        hc_add_theme(hc_theme_flat())
+        hc_add_theme(hc_theme_ffx())
       
       
     })
@@ -190,11 +190,11 @@ shinyServer(function(input, output) {
     output$RecoveredDaily <- renderHighchart({
       
       
-      hchart(Case_time_series, "column", hcaes(x = Date, y = Daily.Recovered), name="Confirmed Recoveries",color="green") %>% 
+      hchart(Case_time_series, "column", hcaes(x = Date, y = Daily.Recovered), name="Confirmed Recoveries",color="purple") %>% 
         hc_exporting(enabled = TRUE) %>%
         hc_title(text="New recoveries reported everyday",align="center") %>%
         hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
-        hc_add_theme(hc_theme_flat())
+        hc_add_theme(hc_theme_ffx())
       
     })
    
@@ -206,7 +206,7 @@ shinyServer(function(input, output) {
       chart_data <- StateCOVID_19[-1,]
       
       hchart(chart_data, "treemap", hcaes(x = State, value = Confirmed, color = Confirmed)) %>% 
-        hc_add_theme(hc_theme_flat())
+        hc_add_theme(hc_theme_ffx())
   
       
     })
@@ -218,7 +218,7 @@ shinyServer(function(input, output) {
       chart_data <- StateCOVID_19[-1,]
       
       hchart(chart_data, "treemap", hcaes(x = State, value = Active,color=Active)) %>% 
-        hc_add_theme(hc_theme_flat())
+        hc_add_theme(hc_theme_ffx())
       
       
     })
@@ -229,7 +229,7 @@ shinyServer(function(input, output) {
       chart_data <- StateCOVID_19[-1,]
       
       hchart(chart_data, "treemap", hcaes(x = State, value = Deaths, color = Deaths)) %>% 
-        hc_add_theme(hc_theme_flat())
+        hc_add_theme(hc_theme_ffx())
       
       
     })
@@ -241,7 +241,7 @@ shinyServer(function(input, output) {
       chart_data <- StateCOVID_19[-1,]
       
       hchart(chart_data, "treemap", hcaes(x = State, value = Recovered, color = Recovered)) %>% 
-        hc_add_theme(hc_theme_flat())
+        hc_add_theme(hc_theme_ffx())
       
     })
 
