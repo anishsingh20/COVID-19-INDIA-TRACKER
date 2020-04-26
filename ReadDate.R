@@ -71,6 +71,15 @@ Test_positive$Positive_rate <- as.double(Test_positive$Positive_rate)
 
 #Finding Recovery Rate
 recovery_rate <- Case_time_series %>% 
+  mutate(Recover_date = round((Total.Recovered/Total.Confirmed)*100,2),
+         Death_rate = round((Total.Deceased/Total.Confirmed)*100,2))
+
+
+State_rate <- StateCOVID_19 %>% 
+  select(State,Confirmed,Deaths,Recovered) %>% 
+  mutate(Recover_date = round((Recovered/Confirmed)*100,2),
+         Death_rate = round((Deaths/Recovered)*100,2))
+
   
 
 
