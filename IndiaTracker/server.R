@@ -200,12 +200,17 @@ shinyServer(function(input, output) {
     
     output$StateConfChart <- renderHighchart({
       
+      
+      #removing the first row as it has the totals
+      chart_data <- StateCOVID_19[-1,]
+        
+      
       highchart() %>% 
-        hc_xAxis(categories=StateCOVID_19$Last_Updated_Time) %>% 
-        hc_add_series_boxplot(name="Deaths", data=StateCOVID_19$Deaths) %>% 
-        hc_add_series_boxplot(name="Recoveries",data=StateCOVID_19$Recovered) %>% 
-        hc_add_series_boxplot(name="Confirmed Cases", data=StateCOVID_19$Confirmed) %>% 
-        hc_add_series_boxplot(name="Active", data=StateCOVID_19$Active)
+        hc_xAxis(categories=chart_data$State) %>% 
+        hc_add_series(name="Deaths", data=chart_data$Deaths,type = "column") %>% 
+        hc_add_series(name="Recoveries",data=chart_data$Recovered, type = "column") %>% 
+        hc_add_series(name="Confirmed Cases", data=chart_data$Confirmed,type = "column") %>% 
+        hc_add_series(name="Active", data=chart_data$Active,type = "column") %>% 
         hc_colors(c("red","green","black","blue")) %>% 
         hc_add_theme(hc_theme_elementary()) %>% 
         hc_exporting(enabled = TRUE) %>%
