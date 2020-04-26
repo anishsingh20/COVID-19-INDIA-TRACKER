@@ -209,6 +209,17 @@ shinyServer(function(input, output) {
   
       
     })
+    
+    
+    output$StateActive <- renderHighchart({
+      
+      #removing the first row as it has the totals
+      chart_data <- StateCOVID_19[-1,]
+      
+      hchart(chart_data, "treemap", hcaes(x = State, value = Active,color=Active))  
+      
+      
+    })
 
 
 })
