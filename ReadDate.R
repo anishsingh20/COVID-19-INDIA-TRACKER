@@ -1,6 +1,7 @@
 #reading the raw COVID-19 JSON data(refreshed every 5 minutes)
 
 library(RCurl)
+require(lubridate)
 
 #links to datasets used in APP:
 #1) https://api.covid19india.org/csv/latest/state_wise_daily.csv #time series of states
@@ -63,6 +64,13 @@ Tested_ICMR <- read.csv(textConnection(myfile6),header = T)
 Test_positive <- Tested_ICMR %>% 
   select(Test.positivity.rate,Update.Time.Stamp) 
 
+Test_positive$Update.Time.Stamp =  as.Date(Test_positive$Update.Time.Stamp, format="%d/%m/%Y")
+
+#ordering by latest dates
+Test_positive = Test_positive %>% arrange(Update.Time.Stamp)
+
+
+
 colnames(Test_positive) <- c("Positive_rate","Date")
 Test_positive <- na.omit(Test_positive)
 
@@ -81,5 +89,6 @@ State_rate <- StateCOVID_19 %>%
          Death_rate = round((Deaths/Recovered)*100,2))
 
   
+
 
 
