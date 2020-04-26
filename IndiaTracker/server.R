@@ -10,6 +10,7 @@ require(highcharter)
 require(readxl)
 require(RCurl)
 require(viridis)
+require(dplyr)
 
 
 
@@ -134,12 +135,10 @@ shinyServer(function(input, output) {
       Tab$Update.Time.Stamp =  as.Date(Tab$Update.Time.Stamp, format="%d/%m/%Y")
       
       #ordering by latest dates
-      Tab = Tab %>% arrange(Update.Time.Stamp)
+      Tab = Tab %>% arrange(desc(Update.Time.Stamp))
       
       
       Tab
-      
-      
       
     })
       

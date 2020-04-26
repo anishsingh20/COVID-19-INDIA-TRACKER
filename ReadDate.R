@@ -67,7 +67,7 @@ Test_positive <- Tested_ICMR %>%
 Test_positive$Update.Time.Stamp =  as.Date(Test_positive$Update.Time.Stamp, format="%d/%m/%Y")
 
 #ordering by latest dates
-Test_positive = Test_positive %>% arrange(Update.Time.Stamp)
+Test_positive = Test_positive %>% arrange(desc(Update.Time.Stamp))
 
 
 
