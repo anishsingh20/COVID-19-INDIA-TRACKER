@@ -313,22 +313,56 @@ shinyServer(function(input, output) {
       State_time_series_conf <- State_time_series_wide %>% 
         select(Date,Confirmed)
       
-      State_time_series_Death <- State_time_series_wide %>% 
-        select(Date,Deceased)
+     
       
-      State_time_series_Recovered <- State_time_series_wide %>% 
-        select(Date,Recovered)
+     
       
       hchart(State_time_series_conf, "column", hcaes(x = Date, y = Confirmed), name="Daily new confirmed",color="purple") %>% 
         hc_exporting(enabled = TRUE) %>%
-        hc_title(text="New confirmed cases",align="center") %>%
+        hc_title(text="New confirmed cases daily",align="center") %>%
         hc_add_theme(hc_theme_ffx())
       
       
       
     })
 
-
+    
+      output$StateCasesTimeSeries_recover <- renderHighchart({
+        
+        
+        State_time_series_wide <- State_time_series %>% 
+          select(input$state,Status,Date) %>% 
+          spread(Status,input$state) 
+        
+        State_time_series_wide$Date <- as.Date(State_time_series_wide$Date,format="%d-%B-%y")
+        
+        State_time_series_Recovered <- State_time_series_wide %>% 
+          select(Date,Recovered)
+        
+        hchart(State_time_series_Recovered, "column", hcaes(x = Date, y = Recovered), name="Daily new recovered",color="blue") %>% 
+          hc_exporting(enabled = TRUE) %>%
+          hc_title(text="New confirmed recoveries daily",align="center") %>%
+          hc_add_theme(hc_theme_ffx())
+        
+      })
+      
+      
+      output$StateCasesTimeSeries_death <- renderHighchart({
+        
+        State_time_series_wide <- State_time_series %>% 
+          select(input$state,Status,Date) %>% 
+          spread(Status,input$state) 
+        
+        State_time_series_wide$Date <- as.Date(State_time_series_wide$Date,format="%d-%B-%y")
+        State_time_series_Death <- State_time_series_wide %>% 
+          select(Date,Deceased)
+        
+        hchart(State_time_series_Death, "column", hcaes(x = Date, y = Deceased), name="Daily new deaths",color="red") %>% 
+          hc_exporting(enabled = TRUE) %>%
+          hc_title(text="New confirmed deaths daily",align="center") %>%
+          hc_add_theme(hc_theme_ffx())
+        
+      })
 })
 
 

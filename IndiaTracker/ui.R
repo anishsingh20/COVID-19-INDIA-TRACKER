@@ -295,9 +295,26 @@ dashboardPage(
                 
                 box(
                   width = 12,
-                  
+                  h4("New confirmed cases in a Particular State:"),
+                  br(),
                   highchartOutput("StateCasesTimeSeries")
+               ),
+               
+               box(
+                 width = 12,
+                 h4("New confirmed recoveries in a Particular State:"),
+                 br(),
+                 highchartOutput("StateCasesTimeSeries_recover")
+               ),
+               
+               box(
+                 width = 12,
+                 h4("New confirmed deaths in a Particular State:"),
+                 br(),
+                 highchartOutput("StateCasesTimeSeries_death")
                )
+               
+               
                 
                 
             )# end fluidRow 
