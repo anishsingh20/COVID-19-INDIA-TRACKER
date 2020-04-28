@@ -308,6 +308,7 @@ dashboardPage(
                         box(
                           width = 12,
                           h3("Samples tested daily as per ICMR"),
+                          p("Few days have missing data"),
                           br(),
                           highchartOutput("TestingChart")
                         ), 
@@ -331,6 +332,7 @@ dashboardPage(
                           width = 12,
                           br(),
                           h3("Total Statewise Testing Done(Cumalative Count)"),
+                          p("Few days have missing data"),
                           br(),
                           highchartOutput("StateTestChart")
                         ), 
@@ -340,9 +342,19 @@ dashboardPage(
                           width = 12,
                           br(),
                           h3("Daily Statewise Testing Done"),
+                          p("Few days have missing data"),
                           br(),
                           highchartOutput("StateDailyTestChart")
                         ), 
+                        
+                        box(
+                          width = 12,
+                          br(),
+                          h3("Test Positivity Rates for each state"),
+                          p("Few days have missing data"),
+                          br(),
+                          highchartOutput("StatePositiveTestRate")
+                        ),
                         
                         
                         box(
@@ -352,6 +364,12 @@ dashboardPage(
                           br(),
                           dataTableOutput("RateTable")
                         )
+                        
+                        
+                       
+                        
+                        
+                        
                   
                 ) #end fluidRow
                 

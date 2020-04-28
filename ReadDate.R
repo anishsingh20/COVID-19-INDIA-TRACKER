@@ -126,3 +126,12 @@ State_test_data_daily <- State_tested   %>%
   mutate(Daily_tested = Total.Tested - lag(Total.Tested)) %>% 
   group_by(Updated.On) %>% 
   summarise(Count=sum(Daily_tested))
+
+
+
+State_Positive_rate <- State_tested   %>% 
+  filter(State == "Maharashtra")  %>% 
+  select(Updated.On,Test.positivity.rate) %>%
+  group_by(Updated.On) 
+
+State_Positive_rate$Test.positivity.rate <- as.character(State_Positive_rate$Test.positivity.rate)

@@ -431,6 +431,27 @@ shinyServer(function(input, output) {
          hc_add_theme(hc_theme_ffx())
        
      })
+     
+     output$StatePositiveTestRate <- renderHighchart({
+       
+       
+       State_Positive_rate <- State_tested   %>% 
+         filter(State == input$state_test)  %>% 
+         select(Updated.On,Test.positivity.rate) %>%
+         group_by(Updated.On) 
+       
+       #converting Rates to character vector and then converting it to Numeric(decimal) value to plot
+       State_Positive_rate$Test.positivity.rate <- as.character(State_Positive_rate$Test.positivity.rate)
+       State_Positive_rate$Test.positivity.rate <- readr::parse_number(State_Positive_rate$Test.positivity.rate)
+       
+       hchart(State_Positive_rate, "column", hcaes(x = Updated.On, y = Test.positivity.rate), name="Rate",color="") %>% 
+         hc_exporting(enabled = TRUE) %>%
+         hc_title(text="Percentage of Tested Positive for COVID-19 out of Total Tested Daily in the State",align="center") %>%
+         hc_add_theme(hc_theme_ffx())
+       
+       
+       
+     })
       
 })
 
