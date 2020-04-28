@@ -158,7 +158,7 @@ dashboardPage(
                 
               box(
                 
-                h4("Total Tested", align="left") , 
+                h4("Total Tested:", align="left") , 
                 textOutput("Tested"), #end text Output
                 width=4,
                 tags$head(tags$style("#Tested{
@@ -171,7 +171,7 @@ dashboardPage(
               
               box(
               
-              h4("Recovery Rate %", align="left") , 
+              h4("Recovery Rate %:", align="left") , 
               textOutput("RecRate"), #end text Output
               width=4,
               tags$head(tags$style("#RecRate{
@@ -183,7 +183,7 @@ dashboardPage(
             ), 
             
             box(
-            h4("Death Rate %", align="left") , 
+            h4("Death Rate %:", align="left") , 
             textOutput("DeadRate"), #end text Output
             width=4,
             tags$head(tags$style("#DeadRate{
