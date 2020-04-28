@@ -213,7 +213,14 @@ dashboardPage(
                       highchartOutput("StateRecoveries")
                   ) ,
                 
+                  hr(),
                   br(),
+                  br(),
+                  br(),
+                  h2("Recovery and Death Rates for each Indian State",align="center"),
+                  br(),
+                  br(),
+                  
                   #recovery and death rates statewise
                   box(
                     
@@ -282,8 +289,14 @@ dashboardPage(
         
         tabItem(tabName = "tab4",
                 
+            
+                
                 
             fluidRow(
+              
+              h2("Time Series analysis of New cases in Each Indian State",align="center"),
+              br(),
+              br(),
                 
                 box(
                   width = 12,
@@ -325,7 +338,9 @@ dashboardPage(
                 
                 fluidRow(
                   
-                  
+                  h2("Time Series analysis of New cases India",align="center"),
+                  br(),
+                  br(),
                   
                   box(
                     

@@ -111,3 +111,11 @@ State_time_series_Recovered <- State_time_series_long %>%
   
 
 
+
+District_data <- raw_India_data %>% 
+  filter(Detected.State=="Uttarakhand") %>% 
+  select(Detected.District) %>% 
+  group_by(Detected.District) %>% 
+  summarise(Count=n())
+
+
