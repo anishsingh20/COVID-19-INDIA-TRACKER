@@ -318,7 +318,7 @@ dashboardPage(
                         
                         box(
                           width = 12,
-                          h3("COVID-19 Test Positivity rate and samples tested daily"),
+                          h3("COVID-19 Test Positivity rate out of samples tested daily"),
                           p("Few days have missing data"),
                           br(),
                           renderHighchart("RateChartIndia")

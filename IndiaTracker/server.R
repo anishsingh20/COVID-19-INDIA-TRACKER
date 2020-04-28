@@ -156,21 +156,24 @@ shinyServer(function(input, output) {
    })
     
     
-    output$RateChartIndia <- renderDataTable({
+    output$RateChartIndia <- renderHighchart({
       
       
-      Tab <- Tested_ICMR %>% 
-        select(Update.Time.Stamp,Total.Samples.Tested,Test.positivity.rate) %>% 
-        mutate(Daily_tested = Total.Samples.Tested - lag(Total.Samples.Tested))
+      India_test_positive <- Tested_ICMR %>% 
+        select(Update.Time.Stamp, Test.positivity.rate) %>% 
+        group_by(Update.Time.Stamp) 
       
-      #converting the char vector to Date vector
-      Tab$Update.Time.Stamp =  as.Date(Tab$Update.Time.Stamp, format="%d/%m/%Y")
+      India_test_positive$Test.positivity.rate <- as.character(India_test_positive$Test.positivity.rate)
+      India_test_positive$Test.positivity.rate <- parse_number(India_test_positive$Test.positivity.rate)
+      India_test_positive <- na.omit(India_test_positive)
+    
+      hchart(India_test_positive, "column", hcaes(x = Update.Time.Stamp , y = Test.positivity.rate), name="Rate",color="blue") %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="Percentage of Tested Positive for COVID-19 out of Total Tested Daily in India",align="center") %>%
+        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
+        hc_add_theme(hc_theme_ffx())
       
-      #ordering by latest dates
-      Tab = Tab %>% arrange(desc(Update.Time.Stamp))
-      
-      Tab
-      
+    
     })
       
   
@@ -444,9 +447,10 @@ shinyServer(function(input, output) {
        State_Positive_rate$Test.positivity.rate <- as.character(State_Positive_rate$Test.positivity.rate)
        State_Positive_rate$Test.positivity.rate <- readr::parse_number(State_Positive_rate$Test.positivity.rate)
        
-       hchart(State_Positive_rate, "column", hcaes(x = Updated.On, y = Test.positivity.rate), name="Rate",color="blue") %>% 
+       hchart(State_Positive_rate, "column", hcaes(x = Updated.On, y = Test.positivity.rate), name="Rate%",color="blue") %>% 
          hc_exporting(enabled = TRUE) %>%
          hc_title(text="Percentage of Tested Positive for COVID-19 out of Total Tested Daily in the State",align="center") %>%
+         hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
          hc_add_theme(hc_theme_ffx())
        
        
