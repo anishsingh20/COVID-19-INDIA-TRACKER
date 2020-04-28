@@ -274,6 +274,31 @@ dashboardPage(
                           highchartOutput("TestingChart")
                         ), 
                         
+                        br(),
+                        
+                        box(
+                          width = 12,
+                          h3("Samples tested daily as per ICMR"),
+                          br(),
+                          highchartOutput("TestingChart")
+                        ), 
+                        
+                        br(),
+                        
+                        #Statewise Tests done
+                        h3("Statewise  Testing being done:",align="center"),
+                        br(),
+                        
+                        #SelectBox                      
+                        box(
+                        
+                          width = 12,
+                          selectInput("state", label = "Select State",choices = StateCOVID_19$State)
+                        
+                        ),
+                        
+                        
+                        
                         box(
                           width = 12,
                           h3("COVID-19 Test Positivity rate and samples tested daily"),
