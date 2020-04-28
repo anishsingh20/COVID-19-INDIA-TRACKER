@@ -156,7 +156,45 @@ dashboardPage(
                   )) #end head
                 ), #end box
                 
+              box(
+                
+                h4("Total Tested", align="left") , 
+                textOutput("Tested"), #end text Output
+                width=4,
+                tags$head(tags$style("#Tested{
+                                 color: green;
+                                 font-size: 18px;
+                                 font-family:'Raleway', sans-serif;
+                                 }"
+                )) #end head
+              ),
               
+              box(
+              
+              h4("Recovery Rate %", align="left") , 
+              textOutput("RecRate"), #end text Output
+              width=4,
+              tags$head(tags$style("#RecRate{
+                                 color: green;
+                                 font-size: 18px;
+                                 font-family:'Raleway', sans-serif;
+                                 }"
+              )) #end head
+            ), 
+            
+            box(
+            h4("Death Rate %", align="left") , 
+            textOutput("DeadRate"), #end text Output
+            width=4,
+            tags$head(tags$style("#DeadRate{
+                                 color: green;
+                                 font-size: 18px;
+                                 font-family:'Raleway', sans-serif;
+                                 }"
+            )) #end head
+        ), 
+            
+            
               box(
               
                 width = 12,

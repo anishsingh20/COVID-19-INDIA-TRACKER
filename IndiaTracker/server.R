@@ -89,7 +89,23 @@ shinyServer(function(input, output) {
       StateCOVID_19$Active[1]
        
     })
+    
+    
+    output$Tested <- renderText({
+      
+      
+    })
   
+    
+    output$RecRate <- renderTable({
+      
+    })
+    
+    
+    output$DeadRate <- renderText({
+      
+      
+    })
     
     output$stackedCovidIndia <- renderHighchart({
       
