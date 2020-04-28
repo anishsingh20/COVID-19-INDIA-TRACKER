@@ -106,7 +106,7 @@ dashboardPage(
                 width=3,
                 tags$head(tags$style("#Active{
                                  color: blue;
-                                 font-size: 18px;
+                                 font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
                 )) #end head
@@ -120,7 +120,7 @@ dashboardPage(
                   textOutput("Confirmed"), #end text Output
                   #adding custom CSS for the text
                   tags$head(tags$style("#Confirmed{
-                                 font-size: 18px;
+                                 font-size: 20px;
                                  color:black;
                                  font-family:'Raleway', sans-serif;
                                  }"
@@ -137,7 +137,7 @@ dashboardPage(
                   #adding custom CSS for the text
                   tags$head(tags$style("#Deaths{
                                  color: red;
-                                 font-size: 18px;
+                                 font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
                   )) #end head
@@ -150,7 +150,7 @@ dashboardPage(
                   width=3,
                   tags$head(tags$style("#Recoveries{
                                  color: green;
-                                 font-size: 18px;
+                                 font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
                   )) #end head
@@ -162,8 +162,8 @@ dashboardPage(
                 textOutput("Tested"), #end text Output
                 width=4,
                 tags$head(tags$style("#Tested{
-                                 color: green;
-                                 font-size: 18px;
+                                 color: black;
+                                 font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
                 )) #end head
@@ -176,7 +176,7 @@ dashboardPage(
               width=4,
               tags$head(tags$style("#RecRate{
                                  color: green;
-                                 font-size: 18px;
+                                 font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
               )) #end head
@@ -187,8 +187,8 @@ dashboardPage(
             textOutput("DeadRate"), #end text Output
             width=4,
             tags$head(tags$style("#DeadRate{
-                                 color: green;
-                                 font-size: 18px;
+                                 color: red;
+                                 font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
             )) #end head

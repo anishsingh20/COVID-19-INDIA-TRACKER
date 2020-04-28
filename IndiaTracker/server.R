@@ -93,17 +93,33 @@ shinyServer(function(input, output) {
     
     output$Tested <- renderText({
       
+      val=Tested_ICMR$Total.Samples.Tested[nrow(Tested_ICMR)]
+      val
       
     })
   
     
-    output$RecRate <- renderTable({
+    output$RecRate <- renderText({
+      
+      State_rate_recover <- StateCOVID_19 %>% 
+        select(State,Confirmed,Deaths,Recovered) %>% 
+        mutate(Recover_rate = round((Recovered/Confirmed)*100,2))
+      
+      #getting value of first row of the column
+      State_rate_recover$Recover_rate[1]
       
     })
     
     
     output$DeadRate <- renderText({
       
+      
+      State_rate_death <- StateCOVID_19 %>% 
+        select(State,Confirmed,Deaths,Recovered) %>% 
+        mutate(Death_rate = round((Deaths/Confirmed)*100,2))
+      
+      #getting value of first row of the column
+      State_rate_death$Death_rate[1]
       
     })
     
