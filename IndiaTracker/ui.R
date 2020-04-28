@@ -275,28 +275,36 @@ dashboardPage(
                         ), 
                         
                         br(),
-                        
-                        box(
-                          width = 12,
-                          h3("Samples tested daily as per ICMR"),
-                          br(),
-                          highchartOutput("TestingChart")
-                        ), 
-                        
                         br(),
                         
                         #Statewise Tests done
-                        h3("Statewise  Testing being done:",align="center"),
+                        h3("Statewise Testing being done:",align="center"),
                         br(),
                         
                         #SelectBox                      
                         box(
                         
                           width = 12,
-                          selectInput("state", label = "Select State",choices = StateCOVID_19$State)
+                          selectInput("state_test", label = "Select State",choices = StateCOVID_19$State[-1])
                         
                         ),
                         
+                        box(
+                          width = 12,
+                          br(),
+                          h3("Total Statewise Testing Done(Cumalative Count)"),
+                          br(),
+                          highchartOutput("StateTestChart")
+                        ), 
+                        
+                        #DAily statewise 
+                        box(
+                          width = 12,
+                          br(),
+                          h3("Daily Statewise Testing Done"),
+                          br(),
+                          highchartOutput("StateDailyTestChart")
+                        ), 
                         
                         
                         box(

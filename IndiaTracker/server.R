@@ -363,6 +363,43 @@ shinyServer(function(input, output) {
           hc_add_theme(hc_theme_ffx())
         
       })
+      
+      
+      output$StateTestChart  <- renderHighchart({
+        
+        State_test_data <- State_tested   %>% 
+          filter(State == input$state_test)  %>% 
+          select(Updated.On,Total.Tested) %>%
+          group_by(Updated.On) %>% 
+          summarise(Count=sum(Total.Tested))
+          
+          
+        hchart(State_test_data, "line", hcaes(x = Updated.On, y = Count), name="Total Samples Tested",color="green") %>% 
+          hc_exporting(enabled = TRUE) %>%
+          hc_title(text="Total Samples Tested Statewise",align="center") %>%
+          hc_add_theme(hc_theme_ffx())
+        
+      }) 
+      
+      
+     output$StateDailyTestChart <- renderHighchart({
+       
+       #Daily tested data for each state selected. Adding a new column and adding Moving differences.
+       State_test_data_daily <- State_tested   %>% 
+         filter(State == input$state_test)  %>% 
+         select(Updated.On,Total.Tested) %>%
+         mutate(Daily_tested = Total.Tested - lag(Total.Tested)) %>% 
+         group_by(Updated.On) %>% 
+         summarise(Count=sum(Daily_tested))
+       
+       
+       hchart(State_test_data_daily, "column", hcaes(x = Updated.On, y = Count), name="Daily Samples Tested",color="red") %>% 
+         hc_exporting(enabled = TRUE) %>%
+         hc_title(text="Daily Samples Tested Statewise",align="center") %>%
+         hc_add_theme(hc_theme_ffx())
+       
+     })
+      
 })
 
 

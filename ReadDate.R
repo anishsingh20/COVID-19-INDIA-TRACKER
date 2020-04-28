@@ -112,10 +112,17 @@ State_time_series_Recovered <- State_time_series_long %>%
 
 
 
-District_data <- raw_India_data %>% 
-  filter(Detected.State=="Uttarakhand") %>% 
-  select(Detected.District) %>% 
-  group_by(Detected.District) %>% 
-  summarise(Count=n())
+State_test_data <- State_tested   %>% 
+  filter(State == "Maharashtra")  %>% 
+  select(Updated.On,Total.Tested) %>%
+  group_by(Updated.On) %>% 
+  summarise(Count=sum(Total.Tested))
 
 
+
+State_test_data_daily <- State_tested   %>% 
+  filter(State == "Maharashtra")  %>% 
+  select(Updated.On,Total.Tested) %>%
+  mutate(Daily_tested = Total.Tested - lag(Total.Tested)) %>% 
+  group_by(Updated.On) %>% 
+  summarise(Count=sum(Daily_tested))
