@@ -316,6 +316,14 @@ dashboardPage(
                         br(),
                         br(),
                         
+                        box(
+                          width = 12,
+                          h3("COVID-19 Test Positivity rate and samples tested daily"),
+                          p("Few days have missing data"),
+                          br(),
+                          renderHighchart("RateChartIndia")
+                        ),
+                        
                         #Statewise Tests done
                         h3("Statewise Testing being done:",align="center"),
                         br(),
@@ -354,22 +362,7 @@ dashboardPage(
                           p("Few days have missing data"),
                           br(),
                           highchartOutput("StatePositiveTestRate")
-                        ),
-                        
-                        
-                        box(
-                          width = 12,
-                          h3("COVID-19 Test Positivity rate and samples tested daily"),
-                          p("Few days have missing data"),
-                          br(),
-                          dataTableOutput("RateTable")
                         )
-                        
-                        
-                       
-                        
-                        
-                        
                   
                 ) #end fluidRow
                 
