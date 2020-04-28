@@ -321,7 +321,7 @@ dashboardPage(
                           h3("COVID-19 Test Positivity rate out of samples tested daily"),
                           p("Few days have missing data"),
                           br(),
-                          renderHighchart("RateChartIndia")
+                          highchartOutput("RateChartIndia")
                         ),
                         
                         #Statewise Tests done
