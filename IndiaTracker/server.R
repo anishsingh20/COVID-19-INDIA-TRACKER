@@ -411,7 +411,7 @@ shinyServer(function(input, output) {
           
         hchart(State_test_data, "line", hcaes(x = Updated.On, y = Count), name="Total Samples Tested",color="green") %>% 
           hc_exporting(enabled = TRUE) %>%
-          hc_title(text="Total Samples Tested Statewise",align="center") %>%
+          hc_title(text="Total Samples Tested Statewise(Cumalative Count)",align="center") %>%
           hc_add_theme(hc_theme_ffx())
         
       }) 

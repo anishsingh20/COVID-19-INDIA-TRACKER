@@ -146,11 +146,7 @@ India_test_positive$Test.positivity.rate <- parse_number(India_test_positive$Tes
 
 India_test_positive <- na.omit(India_test_positive)
 
-hchart(India_test_positive, "column", hcaes(x = Update.Time.Stamp, y = Test.positivity.rate), name="Rate",color="blue") %>% 
-  hc_exporting(enabled = TRUE) %>%
-  hc_title(text="Percentage of Tested Positive for COVID-19 out of Total Tested Daily in India",align="center") %>%
-  hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
-  hc_add_theme(hc_theme_ffx())
 
+count(raw_India_data$Detected.District)
 
   
