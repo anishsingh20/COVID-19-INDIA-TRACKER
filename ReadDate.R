@@ -60,6 +60,13 @@ Tested_ICMR <- read.csv(textConnection(myfile6),header = T)
 
 
 
+myfile7 <- getURL('https://api.covid19india.org/csv/latest/death_and_recovered.csv',ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
+
+Deaths_recovered <- read.csv(textConnection(myfile7),header = T)
+
+
+
+
 
 Test_positive <- Tested_ICMR %>% 
   select(Test.positivity.rate,Update.Time.Stamp) 
@@ -148,5 +155,21 @@ India_test_positive <- na.omit(India_test_positive)
 
 
 count(raw_India_data$Detected.District)
+
+
+
+
+
+# READING STATE JSON DATA IN R 
+
+
+library("rjson")
+json_file <- "https://api.covid19india.org/state_district_wise.json"
+json_data <- fromJSON(paste(readLines(json_file), collapse=""))
+
+json_maha_pune <- data.frame(json_data$Maharashtra$districtData$Pune)
+
+
+
 
   
