@@ -12,6 +12,7 @@ require(highcharter)
 library(readxl)
 require(purrr)
 require(RCurl)
+library("rjson")
 
 
 
@@ -59,6 +60,11 @@ myfile6 <- getURL('https://api.covid19india.org/csv/latest/tested_numbers_icmr_d
 Tested_ICMR <- read.csv(textConnection(myfile6),header = T)
 
 
+#DISTRICT WISE DATA(IN JSON FORMAT)
+
+json_file <- "https://api.covid19india.org/state_district_wise.json"
+json_data <- fromJSON(paste(readLines(json_file), collapse=""))
+
 
 
 dashboardPage(
@@ -76,7 +82,8 @@ dashboardPage(
       menuItem("Samples tested across Country", tabName = "tab3",icon= icon("hospital")),
       menuItem("Time Series Analysis", tabName = "tab4",icon= icon("cog")),
       menuItem("Daily Change in Cases", tabName = "tab5",icon=icon("calendar")),
-      menuItem("About", tabName = "tab6")
+      menuItem("District wise Analysis", tabName = "tab6",icon= icon("map")),
+      menuItem("About", tabName = "tab7")
     ) #end sidebarmenu
     
   ), # end dashboardsidebar
@@ -451,7 +458,34 @@ dashboardPage(
                 ) #end fluidRow
               
                 
-        ) #end tabitem
+        ), #end tabitem
+        
+        
+        #district data tab
+        tabItem(tabName ="tab6",
+                
+                fluidRow( 
+                  
+                  
+                  h2("District wise analysis of Indian States",align="center"),
+                  br(),
+                  br(),
+                  
+                  box(
+                    
+                    width = 12
+                    selectInput()
+                  ), #end box
+                  
+                  box(
+                    
+                   
+                  ),
+                  
+                  
+                ) #end fluid row
+                
+        ) #end tabitem6
         
       ) #end tabitems
       

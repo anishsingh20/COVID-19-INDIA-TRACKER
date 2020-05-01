@@ -11,6 +11,7 @@ require(readxl)
 require(RCurl)
 require(viridis)
 require(dplyr)
+library("rjson")
 
 
 
@@ -63,6 +64,10 @@ shinyServer(function(input, output) {
   
     
     
+  #DISTRICT WISE DATA(IN JSON FORMAT)
+  
+  json_file <- "https://api.covid19india.org/state_district_wise.json"
+  json_data <- fromJSON(paste(readLines(json_file), collapse=""))
     
     
     
