@@ -473,14 +473,19 @@ dashboardPage(
                   
                   box(
                     
-                    width = 12
-                    selectInput()
+                    width = 12,
+                    selectInput("district_state", label = "Select State",choices = StateCOVID_19$State[-1])
                   ), #end box
                   
                   box(
                     
-                   
-                  ),
+                    width = 12,
+                    selectInput("district", label = "Select District", choices = NULL)
+                                  
+                                  
+                                  
+                  ) #end box
+                 
                   
                   
                 ) #end fluid row

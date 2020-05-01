@@ -168,7 +168,7 @@ require(data.table)
 json_file <- "https://api.covid19india.org/state_district_wise.json"
 json_data <- fromJSON(paste(readLines(json_file), collapse=""))
 
-
+State <- unlist(json_data[1:length(json_data)])
 
 
 
