@@ -169,18 +169,34 @@ json_file <- "https://api.covid19india.org/state_district_wise.json"
 json_data <- fromJSON(paste(readLines(json_file), collapse=""))
 
 
-#getting all the districts in a State and its count of COVID-19 cases 
+#getting all the districts in a State and its count of COVID-19 cases and making a dataframe
 State_active <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 2)))
 colnames(State_active)<- c("Active")
+#setting row names as columns values in a new column District
+setDT(State_active, keep.rownames = "District")[]
 
 State_conf <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 3)))
 colnames(State_conf)<- c("Confirmed")
+#setting row names as columns values in a new column District
+setDT(State_conf, keep.rownames = "District")[]
 
 State_death <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 4)))
 colnames(State_death)<- c("Death")
+#setting row names as columns values in a new column District
+setDT(State_death, keep.rownames = "District")[]
 
 State_recovered <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 5)))
 colnames(State_recovered)<- c("Recovered")
+#setting row names as columns values in a new column District
+setDT(State_recovered, keep.rownames = "District")[]
+
+
+#District data
+State_uk="Uttarakhand"
+x<-as.data.frame(unlist(lapply(json_data[[State_uk]]$districtData, `[[`, 1)))
+#to use the rownames as a column of district names 
+setDT(x, keep.rownames = "District")[]
+x <- x %>% mutate_all(na_if,"")
 
 
 
