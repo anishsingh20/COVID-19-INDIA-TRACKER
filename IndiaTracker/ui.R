@@ -1,24 +1,24 @@
 
+#Loading the required packages
+suppressMessages(library(rvest))
+suppressMessages(library(readr))
+suppressMessages(library(jsonlite))
+suppressMessages(library(shiny))
+suppressMessages(library(janitor))
+suppressMessages(library(shinydashboard))
+suppressMessages(library(dplyr))
+suppressMessages(library(tidyr))
+suppressMessages(library(highcharter))
+suppressMessages(library(readxl))
+suppressMessages(library(purrr))
+suppressMessages(library(RCurl))
+suppressMessages(library("rjson"))
+suppressMessages(library(data.table))
+
+
+
+
 #reading the data
-require(rvest)
-require(readr)
-require(jsonlite)
-require(shiny)
-library(janitor)
-require(shinydashboard)
-require(dplyr)
-require(tidyr)
-require(highcharter)
-library(readxl)
-require(purrr)
-require(RCurl)
-library("rjson")
-
-
-
-
-
-
 
 
 #open connection to the file which is a efficient way.
@@ -467,30 +467,68 @@ dashboardPage(
                 fluidRow( 
                   
                   
-                  h2("District wise analysis of Indian States",align="center"),
-                  br(),
-                  br(),
-                  
-                  box(
+                    h2("District wise analysis of Indian States",align="center"),
+                    br(),
+                    br(),
                     
-                    width = 12,
-                    selectInput("district_state", label = "Select State",choices = StateCOVID_19$State[-1])
-                  ), #end box
-                  
-                  box(
+                    box(
+                      
+                      width = 12,
+                      selectInput("district_state", label = "Select State",choices = StateCOVID_19$State[-1])
+                    ), #end box
                     
-                    width = 12,
-                    selectInput("district", label = "Select District", choices = NULL)
-                                  
-                                  
-                                  
-                  ) #end box
-                 
+                    box(
+                      
+                      width = 12,
+                      selectInput("district", label = "Select District", choices = NULL)
+                                    
+                                    
+                                    
+                    ), #end box
                   
-                  
+                    
+                    
+                    box(
+                      
+                      width = 6,
+                      highchartOutput("district_active")
+                      
+                    ),
+                    
+                    
+                    box(
+                      
+                      width = 6,
+                      highchartOutput("district_confirmed")
+                      
+                    ),
+                    
+                    
+                    box(
+                      
+                      width = 6,
+                      highchartOutput("district_dead")
+                      
+                    ),
+                    
+                    box(
+                      
+                      width = 6,
+                      highchartOutput("district_recovered")
+                      
+                    )
+                    
+                    
+                    
                 ) #end fluid row
                 
-        ) #end tabitem6
+        ) #end tabitem6  
+                      
+    
+                  
+                 
+                  
+       
         
       ) #end tabitems
       

@@ -1,19 +1,19 @@
+#Loading the required packages
 
-
-library(shiny)
-#reading the data
-require(rvest)
-require(readr)
-require(jsonlite)
-require(janitor)
-require(highcharter)
-require(readxl)
-require(RCurl)
-require(viridis)
-require(dplyr)
-library("rjson")
-
-
+suppressMessages(library(rvest))
+suppressMessages(library(readr))
+suppressMessages(library(jsonlite))
+suppressMessages(library(shiny))
+suppressMessages(library(janitor))
+suppressMessages(library(shinydashboard))
+suppressMessages(library(dplyr))
+suppressMessages(library(tidyr))
+suppressMessages(library(highcharter))
+suppressMessages(library(readxl))
+suppressMessages(library(purrr))
+suppressMessages(library(RCurl))
+suppressMessages(library("rjson"))
+suppressMessages(library(data.table))
 
 
 
@@ -479,7 +479,7 @@ shinyServer(function(input, output, session) {
        updateSelectInput(session, "district", choices = x$District)
        
        
-     })
+      })
      
      
      
