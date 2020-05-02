@@ -168,7 +168,18 @@ require(data.table)
 json_file <- "https://api.covid19india.org/state_district_wise.json"
 json_data <- fromJSON(paste(readLines(json_file), collapse=""))
 
-State <- unlist(json_data[1:length(json_data)])
+
+#getting all the districts in a State and its count of COVID-19 cases 
+State_active <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 2)))
+State_conf <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 3)))
+
+State_death <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 4)))
+State_recovered <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 5)))
+
+
+
+
+
 
 
 
