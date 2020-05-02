@@ -22,7 +22,7 @@ library("rjson")
 #complete state cases dataset
 
 #server logic
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
     
   #open connection to the file which is a efficient way.
   myfile1 <- getURL('https://api.covid19india.org/csv/latest/state_wise.csv', 
@@ -458,6 +458,25 @@ shinyServer(function(input, output) {
          hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
          hc_add_theme(hc_theme_ffx())
        
+       
+       
+     })
+     
+     
+     #nested selectInputs for district data analysis
+     observe({
+       
+       #getting the value of the selected State
+       State_district<-input$district_state
+       #taking 1 value of the list which is the district name and making a dataframe of it.
+       x<-as.data.frame(unlist(lapply(json_data[[State_district]]$districtData, `[[`, 1)))
+       
+       #to use the rownames as a column of district names 
+       setDT(x, keep.rownames = "District")[]
+       x <- x %>% mutate_all(na_if,"") #removing NA values
+       
+       #adding district names in the nested selectInput
+       updateSelectInput(session, "district", choices = x$District)
        
        
      })
