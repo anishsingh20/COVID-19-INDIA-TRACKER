@@ -479,6 +479,7 @@ dashboardPage(
                     
                     box(
                       
+                    
                       width = 12,
                       selectInput("district", label = "Select District", choices = NULL)
                                     
@@ -490,6 +491,8 @@ dashboardPage(
                     
                     box(
                       
+                      h3("Active Cases in each district",align="center"),
+                      br(),
                       width = 6,
                       highchartOutput("district_active")
                       
@@ -498,6 +501,8 @@ dashboardPage(
                     
                     box(
                       
+                      h3("Confirmed Cases in each district",align="center"),
+                      br(),
                       width = 6,
                       highchartOutput("district_confirmed")
                       
@@ -506,6 +511,8 @@ dashboardPage(
                     
                     box(
                       
+                      h3("Deaths in each district",align="center"),
+                      br(),
                       width = 6,
                       highchartOutput("district_dead")
                       
@@ -513,10 +520,38 @@ dashboardPage(
                     
                     box(
                       
+                      h3("Recovered in each district",align="center"),
+                      br(),
                       width = 6,
                       highchartOutput("district_recovered")
                       
-                    )
+                    ) ,
+                    
+                    
+                    br(),
+                    br(),
+                    br(),
+                    
+                    h3("Deaths Rates and Recovery Rates of each District",align="center"),
+                    
+                    box(
+                      
+                      width = 12,
+                      highchartOutput("district_recovery_rate")
+                      
+                      
+                    ) ,
+                    
+                    br(),
+                    br(),
+                    
+                    box(
+                      
+                      width = 12,
+                      highchartOutput("district_death_rate")
+                     
+                      
+                    ) ,
                     
                     
                     

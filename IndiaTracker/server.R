@@ -503,31 +503,51 @@ shinyServer(function(input, output, session) {
        
        output$district_confirmed <- renderHighchart({
          
+         State_conf <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 3)))
+         colnames(State_conf)<- c("Confirmed")
+         #setting row names as columns values in a new column District
+         setDT(State_conf, keep.rownames = "District")[]
          
-         hchart(State_active,type="pie",hcaes(x=District,y=Active),name="Active") %>% 
+         State_conf <- State_conf %>% arrange(desc(Confirmed))
+         
+         hchart(State_conf,type="pie",hcaes(x=District,y=Confirmed),name="Confirmed") %>% 
            hc_exporting(enabled = TRUE) %>%
-           hc_title(text="Pie Chart of Active COVID-19 cases in each District",align="center") %>% 
+           hc_title(text="Pie Chart of Total confirmed COVID-19 cases in each District",align="center") %>% 
            hc_add_theme(hc_theme_ffx())
+         
        })
        
        
        output$district_dead <- renderHighchart({
          
+         State_death <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 4)))
+         colnames(State_death)<- c("Death")
+         #setting row names as columns values in a new column District
+         setDT(State_death, keep.rownames = "District")[]
          
-         hchart(State_active,type="pie",hcaes(x=District,y=Active),name="Active") %>% 
+         State_death <- State_death %>% arrange(desc(Death))   
+         
+         hchart(State_death,type="pie",hcaes(x=District,y=Death),name="Deaths") %>% 
            hc_exporting(enabled = TRUE) %>%
-           hc_title(text="Pie Chart of Active COVID-19 cases in each District",align="center") %>% 
+           hc_title(text="Pie Chart of Deaths due to COVID-19 in each District",align="center") %>% 
            hc_add_theme(hc_theme_ffx())
+         
        })
        
        
        
        output$district_recovered <- renderHighchart({
          
+         State_recovered <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 5)))
+         colnames(State_recovered)<- c("Recovered")
+         #setting row names as columns values in a new column District
+         setDT(State_recovered, keep.rownames = "District")[]
          
-         hchart(State_active,type="pie",hcaes(x=District,y=Active),name="Active") %>% 
+         State_recovered <- State_recovered %>% arrange(desc(Recovered))
+         
+         hchart(State_recovered,type="pie",hcaes(x=District,y=Recovered),name="Recovered") %>% 
            hc_exporting(enabled = TRUE) %>%
-           hc_title(text="Pie Chart of Active COVID-19 cases in each District",align="center") %>% 
+           hc_title(text="Pie Chart of Recovered COVID-19 cases in each District",align="center") %>% 
            hc_add_theme(hc_theme_ffx())
          
          
