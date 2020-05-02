@@ -501,7 +501,7 @@ dashboardPage(
                     
                     box(
                       
-                      h3("Confirmed Cases in each district",align="center"),
+                      h3("Total Confirmed Cases in each district",align="center"),
                       br(),
                       width = 6,
                       highchartOutput("district_confirmed")

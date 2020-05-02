@@ -202,12 +202,24 @@ x <- x %>% mutate_all(na_if,"")
 
 
 #outer joining the data frames with a consolidated distirct wise data
-df_district<-merge(x = State_conf, y = State_death, by = "District", all = TRUE)
+df_district = merge(x = State_conf, y = State_death, by = "District", all = TRUE)
 df_district = merge(x=df_district,y=State_recovered,by="District", all=TRUE)
 
 
+#getting death rates and recovery rates of each district in a State
+
+df_district_RecRate <- df_district %>% 
+  mutate(Rec_rate=round((Recovered/Confirmed)*100),2) %>% 
+  select(District,Rec_rate) %>% 
+  group_by(District) %>% 
+  arrange(desc(Rec_rate))
 
 
+df_district_DeathRate <- df_district %>% 
+  mutate(Death_rate=round((Death/Confirmed)*100),2) %>%
+  select(District,Death_rate) %>% 
+  group_by(District) %>% 
+  arrange(desc(Death_rate))
 
 
   

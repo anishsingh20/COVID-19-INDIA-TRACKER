@@ -503,7 +503,7 @@ shinyServer(function(input, output, session) {
        
        output$district_confirmed <- renderHighchart({
          
-         State_conf <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 3)))
+         State_conf <- as.data.frame(unlist(lapply(json_data[[State_district]]$districtData, `[[`, 3)))
          colnames(State_conf)<- c("Confirmed")
          #setting row names as columns values in a new column District
          setDT(State_conf, keep.rownames = "District")[]
@@ -520,7 +520,7 @@ shinyServer(function(input, output, session) {
        
        output$district_dead <- renderHighchart({
          
-         State_death <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 4)))
+         State_death <- as.data.frame(unlist(lapply(json_data[[State_district]]$districtData, `[[`, 4)))
          colnames(State_death)<- c("Death")
          #setting row names as columns values in a new column District
          setDT(State_death, keep.rownames = "District")[]
@@ -538,7 +538,7 @@ shinyServer(function(input, output, session) {
        
        output$district_recovered <- renderHighchart({
          
-         State_recovered <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 5)))
+         State_recovered <- as.data.frame(unlist(lapply(json_data[[State_district]]$districtData, `[[`, 5)))
          colnames(State_recovered)<- c("Recovered")
          #setting row names as columns values in a new column District
          setDT(State_recovered, keep.rownames = "District")[]
@@ -556,12 +556,73 @@ shinyServer(function(input, output, session) {
        
        output$district_death_rate <- renderHighchart({
          
+         State_conf <- as.data.frame(unlist(lapply(json_data[[State_district]]$districtData, `[[`, 3)))
+         colnames(State_conf)<- c("Confirmed")
+         #setting row names as columns values in a new column District
+         setDT(State_conf, keep.rownames = "District")[]
+         
+         
+         State_death <- as.data.frame(unlist(lapply(json_data[[State_district]]$districtData, `[[`, 4)))
+         colnames(State_death)<- c("Death")
+         #setting row names as columns values in a new column District
+         setDT(State_death, keep.rownames = "District")[]
+         
+         
+         #joining data to get the total confirmed and total deaths in each district to find rates
+         df_district = merge(x = State_conf, y = State_death, by = "District", all = TRUE)
+         
+         df_district_DeathRate <- df_district %>% 
+           mutate(Death_rate=round((Death/Confirmed)*100),2) %>%
+           select(District,Death_rate) %>% 
+           group_by(District) %>% 
+           arrange(desc(Death_rate))
+         
+         
+         highchart() %>% 
+           hc_xAxis(categories=df_district_DeathRate$District) %>% 
+           hc_add_series(name="Death Rate %", data=df_district_DeathRate$Death_rate, type="column") %>% 
+           hc_colors(c("red")) %>% 
+           hc_add_theme(hc_theme_ffx()) %>%  
+           hc_exporting(enabled = TRUE) %>%
+           hc_title(text="Death rates of each district",align="center") %>% 
+           hc_subtitle(text="Calculated out of total Confirmed case count | Some data is missing or unknown(unaccounted for)",align="center")
+         
        })
        
        
        
        output$district_recovery_rate <- renderHighchart({
          
+         State_conf <- as.data.frame(unlist(lapply(json_data[[State_district]]$districtData, `[[`, 3)))
+         colnames(State_conf)<- c("Confirmed")
+         #setting row names as columns values in a new column District
+         setDT(State_conf, keep.rownames = "District")[]
+         
+         State_recovered <- as.data.frame(unlist(lapply(json_data[[State_district]]$districtData, `[[`, 5)))
+         colnames(State_recovered)<- c("Recovered")
+         #setting row names as columns values in a new column District
+         setDT(State_recovered, keep.rownames = "District")[]
+         
+         
+         #joining data to get the total confirmed and total recovered in each district to find rates
+         df_district = merge(x = State_conf, y = State_recovered, by = "District", all = TRUE)
+         
+         
+         df_district_RecRate <- df_district %>% 
+           mutate(Rec_rate=round((Recovered/Confirmed)*100),2) %>% 
+           select(District,Rec_rate) %>% 
+           group_by(District) %>% 
+           arrange(desc(Rec_rate))
+         
+         
+         highchart() %>% 
+           hc_xAxis(categories=df_district_RecRate$District) %>% 
+           hc_add_series(name="Recovery Rate %", data=df_district_RecRate$Rec_rate, type="column") %>% 
+           hc_colors(c("green")) %>% 
+           hc_add_theme(hc_theme_ffx()) %>%  
+           hc_exporting(enabled = TRUE) %>%
+           hc_title(text="Recovery rates of each district",align="center") %>% 
+           hc_subtitle(text="Calculated out of total Confirmed case count | Some data is missing or unknown(unaccounted for)",align="center")
          
          
        })
