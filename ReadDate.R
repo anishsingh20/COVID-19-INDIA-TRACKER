@@ -171,10 +171,16 @@ json_data <- fromJSON(paste(readLines(json_file), collapse=""))
 
 #getting all the districts in a State and its count of COVID-19 cases 
 State_active <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 2)))
+colnames(State_active)<- c("Active")
+
 State_conf <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 3)))
+colnames(State_conf)<- c("Confirmed")
 
 State_death <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 4)))
+colnames(State_death)<- c("Death")
+
 State_recovered <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 5)))
+colnames(State_recovered)<- c("Recovered")
 
 
 
