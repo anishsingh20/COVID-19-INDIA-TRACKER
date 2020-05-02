@@ -479,6 +479,61 @@ shinyServer(function(input, output, session) {
        updateSelectInput(session, "district", choices = x$District)
        
        
+       output$district_active <- renderHighchart({
+         
+         #getting the value of the selected State
+         State_district<-input$district_state
+         
+         
+         State_active <- as.data.frame(unlist(lapply(json_data[[State_district]]$districtData, `[[`, 2)))
+         colnames(State_active)<- c("Active")
+         #setting row names as columns values in a new column District
+         setDT(State_active, keep.rownames = "District")[]
+         
+         State_active <- State_active %>% arrange(desc(Active))
+         
+         hchart(State_active,type="pie",hcaes(x=District,y=Active),name="Active") %>% 
+           hc_exporting(enabled = TRUE) %>%
+           hc_title(text="Pie Chart of Active COVID-19 cases in each District",align="center") %>% 
+           hc_add_theme(hc_theme_ffx())
+         
+         
+       })
+       
+       
+       output$district_confirmed <- renderHighchart({
+         
+         
+         hchart(State_active,type="pie",hcaes(x=District,y=Active),name="Active") %>% 
+           hc_exporting(enabled = TRUE) %>%
+           hc_title(text="Pie Chart of Active COVID-19 cases in each District",align="center") %>% 
+           hc_add_theme(hc_theme_ffx())
+       })
+       
+       
+       output$district_dead <- renderHighchart({
+         
+         
+         hchart(State_active,type="pie",hcaes(x=District,y=Active),name="Active") %>% 
+           hc_exporting(enabled = TRUE) %>%
+           hc_title(text="Pie Chart of Active COVID-19 cases in each District",align="center") %>% 
+           hc_add_theme(hc_theme_ffx())
+       })
+       
+       
+       
+       output$district_recovered <- renderHighchart({
+         
+         
+         hchart(State_active,type="pie",hcaes(x=District,y=Active),name="Active") %>% 
+           hc_exporting(enabled = TRUE) %>%
+           hc_title(text="Pie Chart of Active COVID-19 cases in each District",align="center") %>% 
+           hc_add_theme(hc_theme_ffx())
+         
+         
+       })
+       
+       
       })
      
      

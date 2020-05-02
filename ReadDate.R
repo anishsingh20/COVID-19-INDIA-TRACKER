@@ -174,6 +174,8 @@ State_active <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, 
 colnames(State_active)<- c("Active")
 #setting row names as columns values in a new column District
 setDT(State_active, keep.rownames = "District")[]
+State_active <- State_active %>% arrange(desc(Active))
+
 
 State_conf <- as.data.frame(unlist(lapply(json_data$Maharashtra$districtData, `[[`, 3)))
 colnames(State_conf)<- c("Confirmed")
