@@ -554,6 +554,19 @@ shinyServer(function(input, output, session) {
        })
        
        
+       output$district_death_rate <- renderHighchart({
+         
+       })
+       
+       
+       
+       output$district_recovery_rate <- renderHighchart({
+         
+         
+         
+       })
+       
+       
       })
      
      
