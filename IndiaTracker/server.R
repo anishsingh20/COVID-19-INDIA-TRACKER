@@ -14,6 +14,7 @@ suppressMessages(library(purrr))
 suppressMessages(library(RCurl))
 suppressMessages(library("rjson"))
 suppressMessages(library(data.table))
+suppressMessages(library(DT))
 
 
 
@@ -145,10 +146,10 @@ shinyServer(function(input, output, session) {
     })
      
     
-    output$StateData <- renderTable({
+    output$StateData <- renderDT({
       
-      #selecting only first 6 columns of the data frame
-      StateCOVID_19
+      #selecting only first 7 columns of the data frame
+      StateCOVID_19[1:7]
       
     })
     
@@ -344,9 +345,17 @@ shinyServer(function(input, output, session) {
     
     output$StateCasesTimeSeries  <- renderHighchart({
       
+      #making a data frame of state codes
+      df_State_codes <- StateCOVID_19 %>% 
+        select(State,State_code) 
+      
+      #filtering the state code of the selected state
+      State_code <- df_State_codes %>% 
+        filter(State==input$state)
+      
       State_time_series_wide <- State_time_series %>% 
-        select(input$state,Status,Date) %>% 
-        spread(Status,input$state) 
+        select(State_code$State_code,Status,Date) %>% 
+        spread(Status,State_code$State_code) 
       
       State_time_series_wide$Date <- as.Date(State_time_series_wide$Date,format="%d-%B-%y")
       
@@ -371,9 +380,18 @@ shinyServer(function(input, output, session) {
       output$StateCasesTimeSeries_recover <- renderHighchart({
         
         
+        #making a data frame of state codes
+        df_State_codes <- StateCOVID_19 %>% 
+          select(State,State_code) 
+        
+        #filtering the state code of the selected state
+        State_code <- df_State_codes %>% 
+          filter(State==input$state)
+        
         State_time_series_wide <- State_time_series %>% 
-          select(input$state,Status,Date) %>% 
-          spread(Status,input$state) 
+          select(State_code$State_code,Status,Date) %>% 
+          spread(Status,State_code$State_code) 
+        
         
         State_time_series_wide$Date <- as.Date(State_time_series_wide$Date,format="%d-%B-%y")
         
@@ -390,9 +408,19 @@ shinyServer(function(input, output, session) {
       
       output$StateCasesTimeSeries_death <- renderHighchart({
         
+        
+        #making a data frame of state codes
+        df_State_codes <- StateCOVID_19 %>% 
+          select(State,State_code) 
+        
+        #filtering the state code of the selected state
+        State_code <- df_State_codes %>% 
+          filter(State==input$state)
+        
+        
         State_time_series_wide <- State_time_series %>% 
-          select(input$state,Status,Date) %>% 
-          spread(Status,input$state) 
+          select(State_code$State_code,Status,Date) %>% 
+          spread(Status,State_code$State_code) 
         
         State_time_series_wide$Date <- as.Date(State_time_series_wide$Date,format="%d-%B-%y")
         State_time_series_Death <- State_time_series_wide %>% 

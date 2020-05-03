@@ -98,10 +98,14 @@ State_rate <- StateCOVID_19 %>%
 
   
 
+
 #selecting the specific State and sprading the data
 State_time_series_long <- State_time_series %>% 
   select(MH,Status,Date) %>% 
   spread(Status,MH) 
+
+
+
 
 State_time_series_long$Date <- as.Date(State_time_series_long$Date,format="%d-%B-%y")
   

@@ -14,6 +14,7 @@ suppressMessages(library(purrr))
 suppressMessages(library(RCurl))
 suppressMessages(library("rjson"))
 suppressMessages(library(data.table))
+suppressMessages(library(DT))
 
 
 
@@ -218,7 +219,7 @@ dashboardPage(
                   width=12,
                   h3("Statewise data:"),
                   p("The data refreshes every day:"),
-                  tableOutput("StateData")
+                  DTOutput("StateData")
                   
                 ) #end box
             )#end fliudRow
@@ -391,7 +392,7 @@ dashboardPage(
                 box(
                   width = 12,
                   
-                  selectInput("state", label = "Select State",choices = StateCOVID_19$State_code)
+                  selectInput("state", label = "Select State",choices = StateCOVID_19$State[-1])
                   
                   
                 ), #end box
