@@ -214,10 +214,11 @@ dashboardPage(
                
                 
                 box(
+                  
                   width=12,
                   h3("Statewise data:"),
                   p("The data refreshes every day:"),
-                  dataTableOutput("StateData")
+                  tableOutput("StateData")
                   
                 ) #end box
             )#end fliudRow

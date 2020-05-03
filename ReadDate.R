@@ -138,8 +138,16 @@ State_test_data_daily <- State_tested   %>%
 
 State_Positive_rate <- State_tested   %>% 
   filter(State == "Maharashtra")  %>% 
-  select(Updated.On,Test.positivity.rate) %>%
-  group_by(Updated.On) 
+  select(Updated.On,Total.Tested,Positive) %>%
+  mutate(Positive_rate=round((Positive/Total.Tested)*100,2))
+
+
+hchart(State_Positive_rate, "column", hcaes(x = Updated.On, y = Positive_rate), name="Rate%",color="blue") %>% 
+  hc_exporting(enabled = TRUE) %>%
+  hc_title(text="Percentage of Tested Positive for COVID-19 out of Total Tested Daily in the State",align="center") %>%
+  hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
+  hc_add_theme(hc_theme_ffx())
+
 
 State_Positive_rate$Test.positivity.rate <- as.character(State_Positive_rate$Test.positivity.rate)
 
@@ -221,5 +229,11 @@ df_district_DeathRate <- df_district %>%
   group_by(District) %>% 
   arrange(desc(Death_rate))
 
+
+
+
+
+
+ 
 
   

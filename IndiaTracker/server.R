@@ -128,6 +128,7 @@ shinyServer(function(input, output, session) {
       
     })
     
+    
     output$stackedCovidIndia <- renderHighchart({
       
       highchart() %>% 
@@ -144,10 +145,10 @@ shinyServer(function(input, output, session) {
     })
      
     
-    output$StateData <- renderDataTable({
+    output$StateData <- renderTable({
       
       #selecting only first 6 columns of the data frame
-      StateCOVID_19[1:6]
+      StateCOVID_19
       
     })
     
@@ -409,12 +410,10 @@ shinyServer(function(input, output, session) {
         
         State_test_data <- State_tested   %>% 
           filter(State == input$state_test)  %>% 
-          select(Updated.On,Total.Tested) %>%
-          group_by(Updated.On) %>% 
-          summarise(Count=sum(Total.Tested))
+          select(Updated.On,Total.Tested)
           
           
-        hchart(State_test_data, "line", hcaes(x = Updated.On, y = Count), name="Total Samples Tested",color="green") %>% 
+        hchart(State_test_data, "line", hcaes(x = Updated.On, y = Total.Tested), name="Total Samples Tested",color="green") %>% 
           hc_exporting(enabled = TRUE) %>%
           hc_title(text="Total Samples Tested Statewise(Cumalative Count)",align="center") %>%
           hc_add_theme(hc_theme_ffx())
@@ -428,12 +427,10 @@ shinyServer(function(input, output, session) {
        State_test_data_daily <- State_tested   %>% 
          filter(State == input$state_test)  %>% 
          select(Updated.On,Total.Tested) %>%
-         mutate(Daily_tested = Total.Tested - lag(Total.Tested)) %>% 
-         group_by(Updated.On) %>% 
-         summarise(Count=sum(Daily_tested))
+         mutate(Daily_tested = Total.Tested - lag(Total.Tested))
        
        
-       hchart(State_test_data_daily, "column", hcaes(x = Updated.On, y = Count), name="Daily Samples Tested",color="red") %>% 
+       hchart(State_test_data_daily, "column", hcaes(x = Updated.On, y = Daily_tested), name="Daily Samples Tested",color="red") %>% 
          hc_exporting(enabled = TRUE) %>%
          hc_title(text="Daily Samples Tested Statewise",align="center") %>%
          hc_add_theme(hc_theme_ffx())
@@ -445,14 +442,16 @@ shinyServer(function(input, output, session) {
        
        State_Positive_rate <- State_tested   %>% 
          filter(State == input$state_test)  %>% 
-         select(Updated.On,Test.positivity.rate) %>%
-         group_by(Updated.On) 
+         select(Updated.On,Total.Tested,Positive) %>%
+         mutate(Positive_rate=round((Positive/Total.Tested)*100,2))
+       
+         
        
        #converting Rates to character vector and then converting it to Numeric(decimal) value to plot
-       State_Positive_rate$Test.positivity.rate <- as.character(State_Positive_rate$Test.positivity.rate)
-       State_Positive_rate$Test.positivity.rate <- readr::parse_number(State_Positive_rate$Test.positivity.rate)
+       #State_Positive_rate$Test.positivity.rate <- as.character(State_Positive_rate$Test.positivity.rate)
+       #State_Positive_rate$Test.positivity.rate <- readr::parse_number(State_Positive_rate$Test.positivity.rate)
        
-       hchart(State_Positive_rate, "column", hcaes(x = Updated.On, y = Test.positivity.rate), name="Rate%",color="blue") %>% 
+       hchart(State_Positive_rate, "column", hcaes(x = Updated.On, y = Positive_rate), name="Rate%",color="blue") %>% 
          hc_exporting(enabled = TRUE) %>%
          hc_title(text="Percentage of Tested Positive for COVID-19 out of Total Tested Daily in the State",align="center") %>%
          hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
