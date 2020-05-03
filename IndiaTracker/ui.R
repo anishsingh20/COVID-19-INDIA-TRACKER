@@ -84,7 +84,7 @@ dashboardPage(
       menuItem("Time Series Analysis(Stateswise)", tabName = "tab4",icon= icon("cog")),
       menuItem("Time Series Analysis(India)", tabName = "tab5",icon=icon("calendar")),
       menuItem("District wise Analysis", tabName = "tab6",icon= icon("map")),
-      menuItem("About", tabName = "tab7")
+      menuItem("About", tabName = "tab7",icon= icon("award"))
     ) #end sidebarmenu
     
   ), # end dashboardsidebar
@@ -567,16 +567,16 @@ dashboardPage(
                 box(
                   width = 12,
                   h2("The Data source:"),
-                  a("Johns Hopkins University",href="https://github.com/CSSEGISandData/COVID-19",target="_blank"),
-                  p("The data refreshes on a daily basis."),
+                  a("COVID-19 INDIA API",href="https://api.covid19india.org/",target="_blank"),
+                  p("The data refreshes every 5 minutes"),
                   h2("Github link to this App made using R and Shiny:"),
-                  a("Analyzing COVID-19 spread worldwide",href="https://github.com/anishsingh20/Analyzing-Corona-Virus-Spread",target="_blank"),
+                  a("COVID-19 India Tracker",href="https://github.com/anishsingh20/COVID-19-INDIA-TRACKER",target="_blank"),
                   br(),
                   h4("Go ahead and checkout the code. Use it as a reference to develop your own dashboards in R. You can follow me on the below mentioned social profiles and my blogs."),
                   h4("Made with love from:"),
                   tags$ol(
                     
-                    tags$li(a("Anish Singh Walia",href="https://github.com/anishsingh20",target="_blank")),
+                    tags$li(a("Anish Singh Walia(Github)",href="https://github.com/anishsingh20",target="_blank")),
                     tags$li(a("LinkedIn",href="https://www.linkedin.com/in/anish-singh-walia-924529103/",target="_blank")),
                     tags$li(a("Medium",href="https://medium.com/@anishsingh20",target="_blank")),
                     tags$li(a("DataSciencePlus",href="https://datascienceplus.com/author/anish-singh-walia/",target="_blank")),
@@ -588,7 +588,7 @@ dashboardPage(
                   
                 ) #end box
                 
-                  ,)
+            ) #end tab7
                       
     
                   

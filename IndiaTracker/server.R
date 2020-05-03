@@ -503,7 +503,7 @@ shinyServer(function(input, output, session) {
        x <- x %>% mutate_all(na_if,"") #removing NA values
        
        #adding district names in the nested selectInput
-       updateSelectInput(session, "district", choices = x$District)
+       #updateSelectInput(session, "district", choices = x$District)
        
        
        output$district_active <- renderHighchart({
