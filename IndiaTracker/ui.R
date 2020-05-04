@@ -101,8 +101,8 @@ dashboardPage(
       
       tabItem(tabName ="tab1",
               
-              h2("COVID-19 India Tracker",align="center",style="margin-top:-5px;"),
-              p("(For best experience, please prefer opening the dashboard on a desktop or larger screens | Data refreshes every 5 minutes | Sometimes it might take time for changes to reflect)",align="center"),
+              h2("COVID-19 India Tracker",align="center",style="margin-top:0px;"),
+              p("(For best experience, please prefer opening this dashboard on a desktop or larger screens | Data refreshes every 5 minutes | Sometimes it might take time for changes to reflect)",align="center"),
               br(),
               
               fluidRow(
