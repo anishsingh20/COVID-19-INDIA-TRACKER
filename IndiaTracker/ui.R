@@ -471,6 +471,8 @@ dashboardPage(
                 
                 
                 h2("District wise analysis of Indian States",align="center"),
+                p("(Few States like Nagaland,Sikkim,Daman and Diu,Dadra and Nagar Haveli and Dadra and Nagar Haveli have no cases so they don't have any district data collected.)", align="center") ,
+                p("(The below plots might show errors for above mentioned States)", align="center"), 
                 br(),
                 br(),
                 

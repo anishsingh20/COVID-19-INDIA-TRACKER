@@ -517,6 +517,8 @@ shinyServer(function(input, output, session) {
          
          State_active <- State_active %>% arrange(desc(Active))
          
+  
+         
          hchart(State_active,type="pie",hcaes(x=District,y=Active),name="Active") %>% 
            hc_exporting(enabled = TRUE) %>%
            hc_title(text="Pie Chart of Active COVID-19 cases in each District",align="center") %>% 
@@ -653,7 +655,7 @@ shinyServer(function(input, output, session) {
        })
        
        
-      })
+      }) #end observe
      
      
      
