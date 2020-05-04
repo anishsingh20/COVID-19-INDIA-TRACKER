@@ -1,4 +1,3 @@
-
 #Loading the required packages
 suppressMessages(library(rvest))
 suppressMessages(library(readr))
@@ -91,36 +90,37 @@ dashboardPage(
   
   
   #dashboardBody
-    dashboardBody(
+  dashboardBody(
+    
+    tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css?family=Merriweather|Playfair+Display|Raleway")
+    ),
+    
+    #adding all the tabs
+    tabItems(
       
-      tags$head(
-        tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css?family=Merriweather|Playfair+Display|Raleway")
-      ),
-      
-      #adding all the tabs
-      tabItems(
-        
-        tabItem(tabName ="tab1",
-                
-                h2("COVID-19 India Tracker",align="center",style="margin-top:-5px;"),
-                br(),
-                
-            fluidRow(
+      tabItem(tabName ="tab1",
               
-              box(
+              h2("COVID-19 India Tracker",align="center",style="margin-top:-5px;"),
+              p("(For best experience, please prefer opening the dashboard on a desktop or larger screens | Data refreshes every 5 minutes | Sometimes it might take time for changes to reflect)",align="center"),
+              br(),
+              
+              fluidRow(
                 
-                h4("Active Cases:", align="left") , 
-                textOutput("Active"), #end text Output
-                width=3,
-                tags$head(tags$style("#Active{
+                box(
+                  
+                  h4("Active Cases:", align="left") , 
+                  textOutput("Active"), #end text Output
+                  width=3,
+                  tags$head(tags$style("#Active{
                                  color: blue;
                                  font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
-                )) #end head
-              ) ,
-              
-              
+                  )) #end head
+                ) ,
+                
+                
                 box(
                   
                   h4("Confirmed Cases:", align="left") , 
@@ -164,235 +164,236 @@ dashboardPage(
                   )) #end head
                 ), #end box
                 
-              box(
-                
-                h4("Total Tested:", align="left") , 
-                textOutput("Tested"), #end text Output
-                width=4,
-                tags$head(tags$style("#Tested{
+                box(
+                  
+                  h4("Total Tested:", align="left") , 
+                  textOutput("Tested"), #end text Output
+                  width=4,
+                  tags$head(tags$style("#Tested{
                                  color: black;
                                  font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
-                )) #end head
-              ),
-              
-              box(
-              
-              h4("Recovery Rate %:", align="left") , 
-              textOutput("RecRate"), #end text Output
-              width=4,
-              tags$head(tags$style("#RecRate{
+                  )) #end head
+                ),
+                
+                box(
+                  
+                  h4("Recovery Rate %:", align="left") , 
+                  textOutput("RecRate"), #end text Output
+                  width=4,
+                  tags$head(tags$style("#RecRate{
                                  color: green;
                                  font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
-              )) #end head
-            ), 
-            
-            box(
-            h4("Death Rate %:", align="left") , 
-            textOutput("DeadRate"), #end text Output
-            width=4,
-            tags$head(tags$style("#DeadRate{
+                  )) #end head
+                ), 
+                
+                box(
+                  h4("Death Rate %:", align="left") , 
+                  textOutput("DeadRate"), #end text Output
+                  width=4,
+                  tags$head(tags$style("#DeadRate{
                                  color: red;
                                  font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
-            )) #end head
-        ), 
-            
-            
-              box(
-              
-                width = 12,
+                  )) #end head
+                ), 
                 
-                highchartOutput("stackedCovidIndia")
+             
+                box(
                   
-                
-              ),
-              
-               
-                
+                  width = 12,
+                  
+                  highchartOutput("stackedCovidIndia")
+                  
+                  
+                ),
+             
                 box(
                   
                   width=12,
                   h3("Statewise data:"),
                   p("The data refreshes every day:"),
-                  DTOutput("StateData")
+                  dataTableOutput("StateData")
                   
                 ) #end box
-            )#end fliudRow
-        ), #end tab1
-        
-        
        
-        tabItem(tabName = "tab2",
-                
-                fluidRow(
-                  
-                  box(width = 6,
-                      
-                      h3("Confirmed cases in Each Indian state:"),
-                      br(),
-                      highchartOutput("StateConf")
-                    ) ,#end box
-                  
-                  box(width = 6,
-                      
-                      h3("Active cases in Each India States"),
-                      br(),
-                      highchartOutput("StateActive")
-                  ),
-                  
-                  box(width = 6,
-                      
-                      h3("Confirmed Deaths in Each Indian state:"),
-                      br(),
-                      highchartOutput("StateDeaths")
-                  ) ,
-                  
-                  
-                  box(width = 6,
-                      
-                      h3("Confirmed Recoveries in Each Indian state:"),
-                      br(),
-                      highchartOutput("StateRecoveries")
-                  ) ,
-                
-                  hr(),
-                  br(),
-                  br(),
-                  br(),
-                  h2("Recovery and Death Rates for each Indian State",align="center"),
-                  br(),
-                  br(),
-                  
-                  #recovery and death rates statewise
-                  box(
-                    
-                    width = 6,
-                    h3("Recovery Rates for each state out of Total confirmed:"),
-                    br(),
-                    highchartOutput("ratesPlotRecovery")
-                    
-                    
-                  ),
-                  
-                  
-                  box(
-                    
-                    width = 6,
-                    h3(" Death rates for each state out of Total confirmed:"),
-                    br(),
-                    highchartOutput("ratesPlotDeath")
-                    
-                    
-                  ) #end box
-              ) #end fluidRow
-        ), #end tabItem
-        
-        
-        #testing data tab
-        tabItem(tabName = "tab3",
-                
-                fluidRow(
+              ) #end fliudRow
+      ), #end tab1
+      
+      
+      
+      tabItem(tabName = "tab2",
               
+              fluidRow(
+                
+                box(width = 6,
+                    
+                    h3("Confirmed cases in Each Indian state:"),
+                    br(),
+                    highchartOutput("StateConf")
+                ) ,#end box
+                
+                box(width = 6,
+                    
+                    h3("Active cases in Each India States"),
+                    br(),
+                    highchartOutput("StateActive")
+                ),
+                
+                box(width = 6,
+                    
+                    h3("Confirmed Deaths in Each Indian state:"),
+                    br(),
+                    highchartOutput("StateDeaths")
+                ) ,
+                
+                
+                box(width = 6,
+                    
+                    h3("Confirmed Recoveries in Each Indian state:"),
+                    br(),
+                    highchartOutput("StateRecoveries")
+                ) ,
+                
+                hr(),
+                br(),
+                br(),
+                br(),
+                h2("Recovery and Death Rates for each Indian State",align="center"),
+                br(),
+                br(),
+                
+                #recovery and death rates statewise
+                box(
                   
-                        box(
-                          
-                          width = 12,
-                          h2("Total samples Tested till date in India"),
-                          p("As per ICMR"),
-                          br(),
-                          textOutput("totalTested"),
-                          tags$head(tags$style("#totalTested{
+                  width = 6,
+                  h3("Recovery Rates for each state out of Total confirmed:"),
+                  br(),
+                  highchartOutput("ratesPlotRecovery")
+                  
+                  
+                ),
+                
+                
+                box(
+                  
+                  width = 6,
+                  h3(" Death rates for each state out of Total confirmed:"),
+                  br(),
+                  highchartOutput("ratesPlotDeath")
+                  
+                  
+                ) #end box
+                
+              ) #end fluidRow
+      ), #end tabItem
+      
+      
+      #testing data tab
+      tabItem(tabName = "tab3",
+              
+              fluidRow(
+                
+                
+                box(
+                  
+                  width = 12,
+                  h2("Total samples Tested till date in India"),
+                  p("As per ICMR"),
+                  br(),
+                  textOutput("totalTested"),
+                  tags$head(tags$style("#totalTested{
                                  color: black;
                                  font-size: 20px;
                                  font-family:'Raleway', sans-serif;
                                  }"
-                          )) #end head
-                        ), 
-                        
-                        box(
-                          width = 12,
-                          h3("Samples tested daily as per ICMR"),
-                          p("Few days have missing data"),
-                          br(),
-                          highchartOutput("TestingChart")
-                        ), 
-                        
-                        br(),
-                        br(),
-                        
-                        box(
-                          width = 12,
-                          h3("COVID-19 Test Positivity rate out of samples tested daily"),
-                          p("Few days have missing data"),
-                          br(),
-                          highchartOutput("RateChartIndia")
-                        ),
-                        
-                        #Statewise Tests done
-                        h3("Statewise Testing being done:",align="center"),
-                        br(),
-                        
-                        #SelectBox                      
-                        box(
-                        
-                          width = 12,
-                          selectInput("state_test", label = "Select State",choices = StateCOVID_19$State[-1])
-                        
-                        ),
-                        
-                        box(
-                          width = 12,
-                          br(),
-                          h3("Total Statewise Testing Done(Cumalative Count)"),
-                          p("Few days have missing data"),
-                          br(),
-                          highchartOutput("StateTestChart")
-                        ), 
-                        
-                        #DAily statewise 
-                        box(
-                          width = 12,
-                          br(),
-                          h3("Daily Statewise Testing Done"),
-                          p("Few days have missing data"),
-                          br(),
-                          highchartOutput("StateDailyTestChart")
-                        ), 
-                        
-                        box(
-                          width = 12,
-                          br(),
-                          h3("Test Positivity Rates for each state"),
-                          p("Few days have missing data"),
-                          br(),
-                          highchartOutput("StatePositiveTestRate")
-                        )
-                  
-                ) #end fluidRow
-                
-        ) , #end tabitem
-        
-        
-        tabItem(tabName = "tab4",
-                
-            
-                
-                
-            fluidRow(
-              
-              h2("Time Series analysis of New cases in Each Indian State",align="center"),
-              br(),
-              br(),
+                  )) #end head
+                ), 
                 
                 box(
                   width = 12,
+                  h3("Samples tested daily as per ICMR"),
+                  p("Few days have missing data"),
+                  br(),
+                  highchartOutput("TestingChart")
+                ), 
+                
+                br(),
+                br(),
+                
+                box(
+                  width = 12,
+                  h3("COVID-19 Test Positivity rate out of samples tested daily"),
+                  p("Few days have missing data"),
+                  br(),
+                  highchartOutput("RateChartIndia")
+                ),
+                
+                #Statewise Tests done
+                h3("Statewise Testing being done:",align="center"),
+                br(),
+                
+                #SelectBox                      
+                box(
                   
-                  selectInput("state", label = "Select State",choices = StateCOVID_19$State[-1])
+                  width = 12,
+                  selectInput("state_test", label = "Select State",choices = StateCOVID_19$State[-1])
+                  
+                ),
+                
+                box(
+                  width = 12,
+                  br(),
+                  h3("Total Statewise Testing Done(Cumalative Count)"),
+                  p("Few days have missing data"),
+                  br(),
+                  highchartOutput("StateTestChart")
+                ), 
+                
+                #DAily statewise 
+                box(
+                  width = 12,
+                  br(),
+                  h3("Daily Statewise Testing Done"),
+                  p("Few days have missing data"),
+                  br(),
+                  highchartOutput("StateDailyTestChart")
+                ), 
+                
+                box(
+                  width = 12,
+                  br(),
+                  h3("Test Positivity Rates for each state"),
+                  p("Few days have missing data"),
+                  br(),
+                  highchartOutput("StatePositiveTestRate")
+                )
+                
+              ) #end fluidRow
+              
+      ) , #end tabitem
+      
+      
+      tabItem(tabName = "tab4",
+              
+              
+              
+              
+              fluidRow(
+                
+                h2("Time Series analysis of New cases in Each Indian State",align="center"),
+                br(),
+                br(),
+                
+                box(
+                  
+                  width = 12,
+                  
+                  selectInput("state", label = "Select State",choices = StateCOVID_19$State_code[-1])
                   
                   
                 ), #end box
@@ -402,42 +403,42 @@ dashboardPage(
                   h4("New confirmed cases in a Particular State:"),
                   br(),
                   highchartOutput("StateCasesTimeSeries")
-               ),
-               
-               box(
-                 width = 12,
-                 h4("New confirmed recoveries in a Particular State:"),
-                 br(),
-                 highchartOutput("StateCasesTimeSeries_recover")
-               ),
-               
-               box(
-                 width = 12,
-                 h4("New confirmed deaths in a Particular State:"),
-                 br(),
-                 highchartOutput("StateCasesTimeSeries_death")
-               )
-               
-               
+                ),
                 
-                
-            )# end fluidRow 
-          
-        ), #end tab4
-        
-        tabItem(tabName ="tab5",
-                
-                fluidRow(
-                  
-                  h2("Time Series analysis of New cases India",align="center"),
+                box(
+                  width = 12,
+                  h4("New confirmed recoveries in a Particular State:"),
                   br(),
+                  highchartOutput("StateCasesTimeSeries_recover")
+                ),
+                
+                box(
+                  width = 12,
+                  h4("New confirmed deaths in a Particular State:"),
                   br(),
+                  highchartOutput("StateCasesTimeSeries_death")
+                )
+                
+                
+                
+                
+              ) # end fluidRow 
+              
+      ), #end tab4
+      
+      tabItem(tabName ="tab5",
+              
+              fluidRow(
+                
+                h2("Time Series analysis of New cases India",align="center"),
+                br(),
+                br(),
+                
+                box(
                   
-                  box(
-                    
-                    width = 12,
-                    h3("Confirmed cases reported Every day:"),
-                    highchartOutput("ConfDaily")
+                  width = 12,
+                  h3("Confirmed cases reported Every day:"),
+                  highchartOutput("ConfDaily")
                 ), #end box
                 
                 box(
@@ -455,153 +456,145 @@ dashboardPage(
                   highchartOutput("RecoveredDaily")
                   
                 )
-                  
-                  
-                ) #end fluidRow
+                
+                
+              ) #end fluidRow
               
+              
+      ), #end tabitem
+      
+      
+      #district data tab
+      tabItem(tabName ="tab6",
+              
+              fluidRow( 
                 
-        ), #end tabitem
-        
-        
-        #district data tab
-        tabItem(tabName ="tab6",
                 
-                fluidRow( 
-                  
-                  
-                    h2("District wise analysis of Indian States",align="center"),
-                    br(),
-                    br(),
-                    
-                    box(
-                      
-                      width = 12,
-                      selectInput("district_state", label = "Select State",choices = StateCOVID_19$State[-1])
-                    ), #end box
-                    
-                   # box(
-                      
-                    
-                    #  width = 12,
-                     # selectInput("district", label = "Select District", choices = NULL)
-                                    
-                                    
-                                    
-                    #), #end box
-                  
-                    
-                    
-                    box(
-                      
-                      h3("Active Cases in each district",align="center"),
-                      br(),
-                      width = 6,
-                      highchartOutput("district_active")
-                      
-                    ),
-                    
-                    
-                    box(
-                      
-                      h3("Total Confirmed Cases in each district",align="center"),
-                      br(),
-                      width = 6,
-                      highchartOutput("district_confirmed")
-                      
-                    ),
-                    
-                    
-                    box(
-                      
-                      h3("Deaths in each district",align="center"),
-                      br(),
-                      width = 6,
-                      highchartOutput("district_dead")
-                      
-                    ),
-                    
-                    box(
-                      
-                      h3("Recovered in each district",align="center"),
-                      br(),
-                      width = 6,
-                      highchartOutput("district_recovered")
-                      
-                    ) ,
-                    
-                    
-                    br(),
-                    br(),
-                    br(),
-                    
-                    h3("Deaths Rates and Recovery Rates of each District",align="center"),
-                    
-                    box(
-                      
-                      width = 12,
-                      highchartOutput("district_recovery_rate")
-                      
-                      
-                    ) ,
-                    
-                    br(),
-                    br(),
-                    
-                    box(
-                      
-                      width = 12,
-                      highchartOutput("district_death_rate")
-                     
-                      
-                    ) ,
-                    
-                    
-                    
-                ) #end fluid row
-                
-        ), #end tabitem6
-        
-        tabItem(
-          tabName="tab7",
+                h2("District wise analysis of Indian States",align="center"),
+                br(),
+                br(),
                 
                 box(
+                  
                   width = 12,
-                  h2("The Data source:"),
-                  a("COVID-19 INDIA API",href="https://api.covid19india.org/",target="_blank"),
-                  p("The data refreshes every 5 minutes"),
-                  h2("Github link to this App made using R and Shiny:"),
-                  a("COVID-19 India Tracker",href="https://github.com/anishsingh20/COVID-19-INDIA-TRACKER",target="_blank"),
-                  br(),
-                  h4("Go ahead and checkout the code. Use it as a reference to develop your own dashboards in R. You can follow me on the below mentioned social profiles and my blogs."),
-                  h4("Made with love from:"),
-                  tags$ol(
-                    
-                    tags$li(a("Anish Singh Walia(Github)",href="https://github.com/anishsingh20",target="_blank")),
-                    tags$li(a("LinkedIn",href="https://www.linkedin.com/in/anish-singh-walia-924529103/",target="_blank")),
-                    tags$li(a("Medium",href="https://medium.com/@anishsingh20",target="_blank")),
-                    tags$li(a("DataSciencePlus",href="https://datascienceplus.com/author/anish-singh-walia/",target="_blank")),
-                    tags$li(a("R Publications",href="https://rpubs.com/anish20",target="_blank"))
-                    
-                  ) #end tags
-                  
-                  
-                  
-                ) #end box
+                  selectInput("district_state", label = "Select State",choices = StateCOVID_19$State[-1])
+                ), #end box
                 
-            ) #end tab7
-                      
-    
+                # box(
+                
+                
+                #  width = 12,
+                # selectInput("district", label = "Select District", choices = NULL)
+                
+                
+                
+                #), #end box
+                
+                
+                
+                box(
                   
-                 
+                  h3("Active Cases in each district",align="center"),
+                  br(),
+                  width = 6,
+                  highchartOutput("district_active")
                   
-       
+                ),
+                
+                
+                box(
+                  
+                  h3("Total Confirmed Cases in each district",align="center"),
+                  br(),
+                  width = 6,
+                  highchartOutput("district_confirmed")
+                  
+                ),
+                
+                
+                box(
+                  
+                  h3("Deaths in each district",align="center"),
+                  br(),
+                  width = 6,
+                  highchartOutput("district_dead")
+                  
+                ),
+                
+                box(
+                  
+                  h3("Recovered in each district",align="center"),
+                  br(),
+                  width = 6,
+                  highchartOutput("district_recovered")
+                  
+                ) ,
+                
+                
+                br(),
+                br(),
+                br(),
+                
+                h3("Deaths Rates and Recovery Rates of each District",align="center"),
+                
+                box(
+                  
+                  width = 12,
+                  highchartOutput("district_recovery_rate")
+                  
+                  
+                ) ,
+                
+                br(),
+                br(),
+                
+                box(
+                  
+                  width = 12,
+                  highchartOutput("district_death_rate")
+                  
+                  
+                ) 
+                
+                
+                
+              ) #end fluid row
+            
+      ), #end tabitem6
+      
+      tabItem(
+        tabName="tab7",
         
-      ) #end tabitems
+        box(
+          
+          width = 12,
+          h2("The Data source:"),
+          a("COVID-19 INDIA API",href="https://api.covid19india.org/",target="_blank"),
+          p("The data refreshes every 5 minutes"),
+          h2("Github link to this App made using R and Shiny:"),
+          a("COVID-19 India Tracker",href="https://github.com/anishsingh20/COVID-19-INDIA-TRACKER",target="_blank"),
+          br(),
+          h4("Go ahead and checkout the code. Use it as a reference to develop your own dashboards in R. You can follow me on the below mentioned social profiles and my blogs."),
+          h4("Made with love from:"),
+          tags$ol(
+            
+            tags$li(a("Anish Singh Walia(Github)",href="https://github.com/anishsingh20",target="_blank")),
+            tags$li(a("LinkedIn",href="https://www.linkedin.com/in/anish-singh-walia-924529103/",target="_blank")),
+            tags$li(a("Medium",href="https://medium.com/@anishsingh20",target="_blank")),
+            tags$li(a("DataSciencePlus",href="https://datascienceplus.com/author/anish-singh-walia/",target="_blank")),
+            tags$li(a("R Publications",href="https://rpubs.com/anish20",target="_blank"))
+            
+          ) #end tags
+          
+          
+          
+        ) #end box
+        
+      ) #end tab7
       
-      
-    ) #end dashboardBody
+    ) #end tabitems
+  ) #end dashboardBody
   
   
   
 ) #end dashboardPage
-
