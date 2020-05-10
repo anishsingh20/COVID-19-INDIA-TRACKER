@@ -23,6 +23,8 @@ The APP:
 
 2) Statewise Data Analysis
 
+![Statewise Analysis](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.13%20PM.png)
+
 3) Daily samples being tested statewise and test positive rates
 
 4) Daily change in cases for each State and India.
