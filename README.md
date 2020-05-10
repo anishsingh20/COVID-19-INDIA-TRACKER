@@ -40,7 +40,9 @@ The APP:
 
 5) District wise analysis
 
-~![District wise analysis](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.43%20PM.png)
+![District wise analysis](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.43%20PM.png)
 
 
 6) About Page
+
+![About Me](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.49%20PM.png)
