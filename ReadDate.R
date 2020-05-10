@@ -262,7 +262,7 @@ hchart(State_time_series_conf, "column", hcaes(x = Date, y = Confirmed), name="D
 State_test_positive_rate <- State_tested %>% 
   select(Updated.On,State,Total.Tested,Positive) %>% 
   #picking the latest date
-  mutate(Positive_rate = round((Positive/Total.Tested)*100),2)
+  mutate(Positive_rate = ((Positive/Total.Tested)*100))
 
 #omitting the NA values to find the mean values of Positivity_rate
 State_test_positive_rate <- na.omit(State_test_positive_rate)
