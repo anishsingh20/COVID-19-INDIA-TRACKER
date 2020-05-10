@@ -182,6 +182,34 @@ shinyServer(function(input, output, session) {
       
     
     })
+    
+    
+    output$StateTestChart <- renderHighchart({
+      
+      State_test_positive_rate <- State_tested %>% 
+        select(Updated.On,State,Total.Tested,Positive) %>% 
+        #picking the latest date
+        mutate(Positive_rate = round((Positive/Total.Tested)*100),2)
+      
+      #omitting the NA values to find the mean values of Positivity_rate
+      State_test_positive_rate <- na.omit(State_test_positive_rate)
+      
+      #Taking mean of the positivity rates for all dates for each state
+      State_rate <- State_test_positive_rate %>% 
+        group_by(State) %>% 
+        summarise(mean_positive_rate = round(mean(Positive_rate),2)) %>% 
+        arrange(desc(mean_positive_rate))
+      
+      
+      hchart(State_rate, "column", hcaes(x = State, y = mean_positive_rate), name="Rate %",color="purple") %>% 
+        hc_exporting(enabled = TRUE) %>%
+        hc_title(text="Mean COVID-19 test positive rates for each State",align="center") %>%
+        hc_subtitle(text="Few days have missing data. Actual values may vary",align="center") %>% 
+        hc_add_theme(hc_theme_ffx())
+      
+      
+      
+    })
       
   
     output$TestingChart <- renderHighchart({
