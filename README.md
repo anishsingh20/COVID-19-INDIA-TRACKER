@@ -6,7 +6,7 @@ Link to the deployed COVID-19 India Dashboard : https://anishsingh.shinyapps.io/
 A really good COVID-19 tracker for India:https://www.covid19india.org/
 
 
-### DATA SOURCE
+## DATA SOURCE
 
 __1. CSV : https://api.covid19india.org/csv/__
 
@@ -15,7 +15,8 @@ __2. Complete Data : https://api.covid19india.org/__
 The above link has links to all the CSV datasets maintined by __https://www.covid19india.org/__
 
 
-### The Application and how it looks:
+## The Application and how it looks:
+
 
 *__1) Home page with summarises data for India.__*
 
