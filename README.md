@@ -39,3 +39,8 @@ The APP:
 ![India's daily change](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.34%20PM.png)
 
 5) District wise analysis
+
+~![District wise analysis](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.43%20PM.png)
+
+
+6) About Page
