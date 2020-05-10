@@ -323,16 +323,16 @@ dashboardPage(
                 ), 
                 
                 
+                
                 box(
                   width = 12,
                   h3("Statewise Mean(average) of COVID-19 Test Positivity Rate for each date"),
-                  p("The mean COVID-19 test positivity rate has been calculated using the mean of Test positivity rates on each day for each State."),
+                  p("The mean test positive rate is calculated by taking the mean of test positive_rates for each day for every State."),
                   p("It would be interesting to know which state has the highest ratio of positive cases out of total samples tested daily."),
                   p("Few days have missing data"),
                   br(),
-                  highchartOutput("StateTestRate")
-                  
-                ), 
+                  highchartOutput("MeanTestRate")
+                ),
                 
                 
                 
@@ -347,14 +347,7 @@ dashboardPage(
                   highchartOutput("RateChartIndia")
                 ),
                 
-                
-                box(
-                  width = 12,
-                  h3("Mean testing positive rate for each state in India."),
-                  p("The mean test positive rate is calculated by taking the mean of test positive_rates for each day for every State."),
-                  br(),
-                  highchartOutput("MeanTestRate")
-                ),
+               
                 
                 #Statewise Tests done
                 h3("Statewise Testing being done:",align="center"),
