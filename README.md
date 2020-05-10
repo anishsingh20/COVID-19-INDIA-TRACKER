@@ -19,6 +19,8 @@ The APP:
 
 1) Home page with summarises data for India.
 
+![Home Page](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.06.55%20PM.png)
+
 2) Statewise Data Analysis
 
 3) Daily samples being tested statewise and test positive rates
