@@ -30,6 +30,12 @@ The APP:
 ![India's COVID-19 Testing](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.25%20PM.png)
 
 
-4) Daily change in cases for each State and India.
+
+
+4) Daily change in cases for each State and India ie Time Series Analysis.
+
+![Statewise Daily changes](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.30%20PM.png)
+
+![India's daily change](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.34%20PM.png)
 
 5) District wise analysis
