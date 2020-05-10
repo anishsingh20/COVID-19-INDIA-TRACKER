@@ -27,6 +27,9 @@ The APP:
 
 3) Daily samples being tested statewise and test positive rates
 
+![India's COVID-19 Testing](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.07.25%20PM.png)
+
+
 4) Daily change in cases for each State and India.
 
 5) District wise analysis
