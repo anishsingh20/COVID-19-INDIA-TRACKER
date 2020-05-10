@@ -326,9 +326,9 @@ dashboardPage(
                 
                 box(
                   width = 12,
-                  h3("Statewise Mean(average) of COVID-19 Test Positivity Rate for each date"),
-                  p("The mean test positive rate is calculated by taking the mean of test positive_rates for each day for every State."),
-                  p("It would be interesting to know which state has the highest ratio of positive cases out of total samples tested daily."),
+                  h3("Statewise COVID-19 Mean(average) Test Positivity Rate for each date"),
+                  p("The mean test positive rate is calculated by taking the mean of no of samples who tested positive for each day for every State."),
+                  p("It would be interesting to know which state has the highest ratio of tested COVID-19 positive cases out of samples tested daily."),
                   p("Few days have missing data"),
                   br(),
                   highchartOutput("MeanTestRate")
