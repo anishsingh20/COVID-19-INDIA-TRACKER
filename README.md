@@ -18,7 +18,7 @@ The above link has links to all the CSV datasets maintined by __https://www.covi
 ## The Application and how it looks:
 
 
-*__1) Home page with summarises data for India.__*
+*__1) Home page which summarises data for India.__*
 
 ![Home Page](https://github.com/anishsingh20/COVID-19-INDIA-TRACKER/blob/master/images/Screenshot%202020-05-10%20at%2012.06.55%20PM.png)
 
